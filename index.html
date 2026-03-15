@@ -1,0 +1,3329 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduControl — O'quv markazi tizimi</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --b0: #06080f;
+            --b1: #0c0f1d;
+            --b2: #111527;
+            --b3: #171c30;
+            --b4: #1d2238;
+            --bd: rgba(255, 255, 255, 0.07);
+            --bd2: rgba(255, 255, 255, 0.13);
+            --ac: #4f87f6;
+            --ac2: rgba(79, 135, 246, 0.14);
+            --acg: rgba(79, 135, 246, 0.22);
+            --gr: #18c97a;
+            --gr2: rgba(24, 201, 122, 0.12);
+            --re: #ef4f4e;
+            --re2: rgba(239, 79, 78, 0.12);
+            --am: #f5a400;
+            --am2: rgba(245, 164, 0, 0.12);
+            --pu: #9b70f5;
+            --pu2: rgba(155, 112, 245, 0.12);
+            --go: #f5c400;
+            --go2: rgba(245, 196, 0, 0.12);
+            --t0: #e8eaf8;
+            --t1: #7c85ae;
+            --t2: #424b6a;
+            --fn: 'Outfit', sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+            --r: 5px;
+            --r2: 10px;
+            --sh: 0 8px 32px rgba(0, 0, 0, .55)
+        }
+
+        body {
+            font-family: var(--fn);
+            background: var(--b0);
+            color: var(--t0);
+            min-height: 100vh
+        }
+
+        input,
+        select,
+        button,
+        textarea {
+            font-family: var(--fn)
+        }
+
+        /* LOGIN */
+        .lpg {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(ellipse at 20% 50%, rgba(79, 135, 246, .06) 0%, transparent 60%), var(--b0)
+        }
+
+        .lcard {
+            background: var(--b1);
+            border: 1px solid var(--bd2);
+            border-radius: 16px;
+            padding: 40px;
+            width: 400px;
+            max-width: 100%;
+            box-shadow: var(--sh)
+        }
+
+        .llogo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px
+        }
+
+        .llogo-i {
+            width: 40px;
+            height: 40px;
+            background: var(--ac);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .llogo-i svg {
+            width: 21px;
+            height: 21px;
+            stroke: #fff;
+            fill: none;
+            stroke-width: 2.2
+        }
+
+        .llogo-n {
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: -.3px
+        }
+
+        .llogo-s {
+            font-size: 11px;
+            color: var(--t2);
+            margin-top: 1px
+        }
+
+        .ltitle {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px
+        }
+
+        .lsub {
+            font-size: 13px;
+            color: var(--t1);
+            margin-bottom: 20px
+        }
+
+        .hbox {
+            background: var(--b2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            padding: 13px 15px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: var(--t1);
+            line-height: 1.9
+        }
+
+        .hbox b {
+            color: var(--t0);
+            font-weight: 500
+        }
+
+        .fg {
+            margin-bottom: 13px
+        }
+
+        .fl {
+            display: block;
+            font-size: 10.5px;
+            color: var(--t2);
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            font-weight: 500;
+            margin-bottom: 5px
+        }
+
+        .fi {
+            width: 100%;
+            padding: 9px 13px;
+            background: var(--b2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            color: var(--t0);
+            font-size: 13.5px;
+            outline: none;
+            transition: border-color .15s, box-shadow .15s
+        }
+
+        .fi:focus {
+            border-color: var(--ac);
+            box-shadow: 0 0 0 3px var(--acg)
+        }
+
+        .fi::placeholder {
+            color: var(--t2)
+        }
+
+        select.fi option {
+            background: var(--b2)
+        }
+
+        textarea.fi {
+            resize: vertical;
+            min-height: 72px
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: var(--r);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--bd2);
+            background: var(--b2);
+            color: var(--t1);
+            transition: all .15s;
+            white-space: nowrap
+        }
+
+        .btn:hover {
+            background: var(--b3);
+            color: var(--t0)
+        }
+
+        .btn:active {
+            transform: scale(.98)
+        }
+
+        .btn-p {
+            background: var(--ac);
+            border-color: var(--ac);
+            color: #fff;
+            box-shadow: 0 0 18px var(--acg)
+        }
+
+        .btn-p:hover {
+            background: #3d77e8;
+            border-color: #3d77e8;
+            color: #fff
+        }
+
+        .btn-g {
+            border-color: rgba(24, 201, 122, .25);
+            color: var(--gr)
+        }
+
+        .btn-g:hover {
+            background: var(--gr2)
+        }
+
+        .btn-r {
+            border-color: rgba(239, 79, 78, .25);
+            color: var(--re)
+        }
+
+        .btn-r:hover {
+            background: var(--re2)
+        }
+
+        .btn-go {
+            border-color: rgba(245, 196, 0, .25);
+            color: var(--go)
+        }
+
+        .btn-go:hover {
+            background: var(--go2)
+        }
+
+        .btn-sm {
+            padding: 4px 10px;
+            font-size: 11.5px;
+            border-radius: 4px
+        }
+
+        .btn-fw {
+            width: 100%;
+            padding: 11px;
+            font-size: 14px
+        }
+
+        /* SHELL */
+        .shell {
+            display: flex;
+            min-height: 100vh
+        }
+
+        /* SIDEBAR */
+        .sb {
+            width: 214px;
+            flex-shrink: 0;
+            background: var(--b1);
+            border-right: 1px solid var(--bd);
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto
+        }
+
+        .sbl {
+            padding: 19px 15px 15px;
+            border-bottom: 1px solid var(--bd)
+        }
+
+        .sbl-row {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .sbl-ic {
+            width: 29px;
+            height: 29px;
+            background: var(--ac);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .sbl-ic svg {
+            width: 15px;
+            height: 15px;
+            stroke: #fff;
+            fill: none;
+            stroke-width: 2.2
+        }
+
+        .sbl-n {
+            font-size: 13.5px;
+            font-weight: 700
+        }
+
+        .sbl-s {
+            font-size: 10px;
+            color: var(--t2);
+            margin-top: 1px
+        }
+
+        .sb-nav {
+            padding: 3px 7px;
+            padding-top: 8px
+        }
+
+        .si {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 9px;
+            margin-bottom: 2px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--t1);
+            border: 1px solid transparent;
+            transition: all .15s
+        }
+
+        .si:hover {
+            background: var(--b2);
+            color: var(--t0)
+        }
+
+        .si.active {
+            background: var(--ac2);
+            color: var(--ac);
+            border-color: rgba(79, 135, 246, .18);
+            font-weight: 500
+        }
+
+        .si svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0
+        }
+
+        .si-bdg {
+            margin-left: auto;
+            background: var(--re);
+            color: #fff;
+            font-size: 9.5px;
+            padding: 1px 5px;
+            border-radius: 8px;
+            font-weight: 700;
+            min-width: 16px;
+            text-align: center
+        }
+
+        .sb-ft {
+            margin-top: auto;
+            padding: 13px;
+            border-top: 1px solid var(--bd)
+        }
+
+        .sb-usr {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .sb-av {
+            width: 30px;
+            height: 30px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0
+        }
+
+        .sb-un {
+            font-size: 12.5px;
+            font-weight: 500
+        }
+
+        .sb-ur {
+            font-size: 10px;
+            color: var(--t2)
+        }
+
+        .sb-lo {
+            cursor: pointer;
+            margin-left: auto;
+            color: var(--t2);
+            transition: color .15s
+        }
+
+        .sb-lo:hover {
+            color: var(--re)
+        }
+
+        /* TOPBAR */
+        .topbar {
+            height: 54px;
+            border-bottom: 1px solid var(--bd);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 12px;
+            background: var(--b0);
+            position: sticky;
+            top: 0;
+            z-index: 5
+        }
+
+        .tb-t {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -.2px
+        }
+
+        .tb-r {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .cc {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--go2);
+            border: 1px solid rgba(245, 196, 0, .2);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--go)
+        }
+
+        /* MAIN */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0
+        }
+
+        .cnt {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto
+        }
+
+        .pg {
+            display: none;
+            animation: pgIn .25s ease
+        }
+
+        .pg.active {
+            display: block
+        }
+
+        @keyframes pgIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* METRICS */
+        .mcs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 18px
+        }
+
+        .mc {
+            background: var(--b1);
+            border: 1px solid var(--bd);
+            border-radius: var(--r2);
+            padding: 15px;
+            transition: border-color .2s, transform .2s
+        }
+
+        .mc:hover {
+            border-color: var(--bd2);
+            transform: translateY(-1px)
+        }
+
+        .mc-l {
+            font-size: 10px;
+            color: var(--t2);
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            font-weight: 500;
+            margin-bottom: 7px
+        }
+
+        .mc-v {
+            font-size: 23px;
+            font-weight: 700;
+            letter-spacing: -1px
+        }
+
+        .mc-s {
+            font-size: 11.5px;
+            color: var(--t1);
+            margin-top: 4px
+        }
+
+        /* TABLE */
+        .tc {
+            background: var(--b1);
+            border: 1px solid var(--bd);
+            border-radius: var(--r2);
+            overflow: hidden
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px
+        }
+
+        thead tr {
+            border-bottom: 1px solid var(--bd)
+        }
+
+        th {
+            padding: 9px 13px;
+            text-align: left;
+            font-size: 10px;
+            color: var(--t2);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: .6px
+        }
+
+        td {
+            padding: 10px 13px;
+            border-bottom: 1px solid var(--bd);
+            vertical-align: middle
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none
+        }
+
+        tbody tr {
+            transition: background .1s
+        }
+
+        tbody tr:hover td {
+            background: rgba(255, 255, 255, .02)
+        }
+
+        /* AVATAR */
+        .av {
+            width: 27px;
+            height: 27px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            flex-shrink: 0
+        }
+
+        .av0 {
+            background: rgba(79, 135, 246, .15);
+            color: var(--ac)
+        }
+
+        .av1 {
+            background: rgba(24, 201, 122, .15);
+            color: var(--gr)
+        }
+
+        .av2 {
+            background: rgba(155, 112, 245, .15);
+            color: var(--pu)
+        }
+
+        .av3 {
+            background: rgba(245, 164, 0, .15);
+            color: var(--am)
+        }
+
+        .nc {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        /* PILLS */
+        .pl {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500
+        }
+
+        .pl::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        .p-gr {
+            background: var(--gr2);
+            color: var(--gr);
+            border: 1px solid rgba(24, 201, 122, .2)
+        }
+
+        .p-gr::before {
+            background: var(--gr)
+        }
+
+        .p-re {
+            background: var(--re2);
+            color: var(--re);
+            border: 1px solid rgba(239, 79, 78, .2)
+        }
+
+        .p-re::before {
+            background: var(--re)
+        }
+
+        .p-am {
+            background: var(--am2);
+            color: var(--am);
+            border: 1px solid rgba(245, 164, 0, .2)
+        }
+
+        .p-am::before {
+            background: var(--am)
+        }
+
+        .p-bl {
+            background: var(--ac2);
+            color: var(--ac);
+            border: 1px solid rgba(79, 135, 246, .2)
+        }
+
+        .p-bl::before {
+            background: var(--ac)
+        }
+
+        .p-go {
+            background: var(--go2);
+            color: var(--go);
+            border: 1px solid rgba(245, 196, 0, .2)
+        }
+
+        .p-go::before {
+            background: var(--go)
+        }
+
+        .p-gy {
+            background: rgba(255, 255, 255, .05);
+            color: var(--t1);
+            border: 1px solid var(--bd)
+        }
+
+        .p-gy::before {
+            background: var(--t1)
+        }
+
+        .p-pu {
+            background: var(--pu2);
+            color: var(--pu);
+            border: 1px solid rgba(155, 112, 245, .2)
+        }
+
+        .p-pu::before {
+            background: var(--pu)
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--b1);
+            border: 1px solid var(--bd);
+            border-radius: var(--r2);
+            padding: 16px;
+            margin-bottom: 10px;
+            transition: border-color .2s
+        }
+
+        .card:hover {
+            border-color: var(--bd2)
+        }
+
+        .ct {
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-bottom: 4px
+        }
+
+        .cd {
+            font-size: 12px;
+            color: var(--t1);
+            margin-bottom: 10px;
+            line-height: 1.5
+        }
+
+        .cf {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap
+        }
+
+        /* MARKET */
+        .mkt {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px
+        }
+
+        .mktc {
+            background: var(--b1);
+            border: 1px solid var(--bd);
+            border-radius: var(--r2);
+            padding: 22px 18px;
+            text-align: center;
+            transition: all .2s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .mktc:hover {
+            border-color: var(--bd2);
+            transform: translateY(-2px);
+            box-shadow: var(--sh)
+        }
+
+        .mktc-e {
+            font-size: 46px;
+            margin-bottom: 10px;
+            display: block
+        }
+
+        .mktc-n {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 3px
+        }
+
+        .mktc-d {
+            font-size: 11.5px;
+            color: var(--t1);
+            margin-bottom: 12px
+        }
+
+        .mktc-p {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--go);
+            margin-bottom: 13px
+        }
+
+        /* LAYOUT */
+        .sh {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px
+        }
+
+        .sht {
+            font-size: 14px;
+            font-weight: 600
+        }
+
+        .g2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        /* MODAL */
+        .mbg {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .78);
+            backdrop-filter: blur(3px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center
+        }
+
+        .mbg.open {
+            display: flex;
+            animation: mIn .18s
+        }
+
+        @keyframes mIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .modal {
+            background: var(--b1);
+            border: 1px solid var(--bd2);
+            border-radius: 14px;
+            width: 450px;
+            max-width: 95vw;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .7);
+            animation: mUp .22s ease;
+            max-height: 90vh;
+            overflow-y: auto
+        }
+
+        @keyframes mUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .mh {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 17px 20px;
+            border-bottom: 1px solid var(--bd)
+        }
+
+        .mh-t {
+            font-size: 14px;
+            font-weight: 600
+        }
+
+        .mcl {
+            width: 26px;
+            height: 26px;
+            border-radius: 5px;
+            border: 1px solid var(--bd);
+            background: var(--b2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--t2);
+            font-size: 15px;
+            transition: all .15s
+        }
+
+        .mcl:hover {
+            background: var(--b3);
+            color: var(--t0)
+        }
+
+        .mbody {
+            padding: 18px 20px
+        }
+
+        .mfot {
+            padding: 13px 20px;
+            border-top: 1px solid var(--bd);
+            display: flex;
+            justify-content: flex-end;
+            gap: 7px
+        }
+
+        .fr {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 11px
+        }
+
+        /* UPLOAD */
+        .uz {
+            border: 2px dashed var(--bd2);
+            border-radius: 8px;
+            padding: 22px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s;
+            background: var(--b2)
+        }
+
+        .uz:hover {
+            border-color: var(--ac);
+            background: var(--ac2)
+        }
+
+        .uz-t {
+            font-size: 13px;
+            color: var(--t1)
+        }
+
+        .uz-s {
+            font-size: 11px;
+            color: var(--t2);
+            margin-top: 3px
+        }
+
+        .uprev {
+            width: 100%;
+            max-height: 190px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none
+        }
+
+        /* TOAST */
+        #toasts {
+            position: fixed;
+            bottom: 18px;
+            right: 18px;
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            pointer-events: none;
+            max-width: 280px
+        }
+
+        .toast {
+            background: var(--b2);
+            border: 1px solid var(--bd2);
+            border-radius: 8px;
+            padding: 9px 13px;
+            font-size: 12px;
+            color: var(--t0);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            animation: tIn .2s ease;
+            box-shadow: var(--sh)
+        }
+
+        @keyframes tIn {
+            from {
+                opacity: 0;
+                transform: translateX(8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+
+        .td2 {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        /* ATT ROW */
+        .ar {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--bd)
+        }
+
+        .ar:last-child {
+            border-bottom: none
+        }
+
+        /* IMAGE VIEWER */
+        .iv {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .92);
+            z-index: 400;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out
+        }
+
+        .iv.open {
+            display: flex
+        }
+
+        .iv img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 8px
+        }
+
+        /* EMPTY */
+        .empty {
+            text-align: center;
+            padding: 36px;
+            color: var(--t1)
+        }
+
+        .empty-e {
+            font-size: 28px;
+            margin-bottom: 8px
+        }
+
+        .empty-t {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 3px
+        }
+
+        .empty-s {
+            font-size: 11.5px;
+            color: var(--t2)
+        }
+
+        /* STAGGER */
+        @keyframes sianim {
+            from {
+                opacity: 0;
+                transform: translateY(4px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .st {
+            opacity: 0;
+            animation: sianim .28s ease forwards
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--bd);
+            margin: 13px 0
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 4px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--b4);
+            border-radius: 2px
+        }
+
+        /* ===== COIN PAGE ===== */
+        .coin-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 22px
+        }
+
+        .coin-stu-card {
+            background: var(--b1);
+            border: 1px solid var(--bd);
+            border-radius: var(--r2);
+            padding: 18px;
+            transition: all .2s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .coin-stu-card:hover {
+            border-color: var(--bd2);
+            transform: translateY(-1px);
+            box-shadow: var(--sh)
+        }
+
+        .csc-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px
+        }
+
+        .csc-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0
+        }
+
+        .csc-name {
+            font-size: 14px;
+            font-weight: 600
+        }
+
+        .csc-login {
+            font-size: 11px;
+            color: var(--t2);
+            font-family: var(--mono)
+        }
+
+        .csc-bal {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--go);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: baseline;
+            gap: 5px
+        }
+
+        .csc-bal-lbl {
+            font-size: 11px;
+            color: var(--t2);
+            font-weight: 400
+        }
+
+        .csc-inp {
+            flex: 1;
+            padding: 7px 10px;
+            background: var(--b2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            color: var(--t0);
+            font-size: 13px;
+            outline: none;
+            transition: border-color .15s
+        }
+
+        .csc-inp:focus {
+            border-color: var(--ac);
+            box-shadow: 0 0 0 2px var(--acg)
+        }
+
+        .csc-inp::placeholder {
+            color: var(--t2)
+        }
+
+        .csc-inp-row {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px
+        }
+
+        /* LOG TABLE */
+        .log-row-add {
+            background: rgba(24, 201, 122, 0.04)
+        }
+
+        .log-row-sub {
+            background: rgba(239, 79, 78, 0.04)
+        }
+
+        .log-amt-add {
+            color: var(--gr);
+            font-weight: 600;
+            font-family: var(--mono);
+            font-size: 12px
+        }
+
+        .log-amt-sub {
+            color: var(--re);
+            font-weight: 600;
+            font-family: var(--mono);
+            font-size: 12px
+        }
+
+        /* QUICK AMOUNTS */
+        .quick-amts {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 7px
+        }
+
+        .qa {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11.5px;
+            cursor: pointer;
+            border: 1px solid var(--bd);
+            background: var(--b3);
+            color: var(--t1);
+            transition: all .15s
+        }
+
+        .qa:hover {
+            border-color: var(--bd2);
+            color: var(--t0)
+        }
+
+        /* ===== MOBILE TOPBAR BURGER ===== */
+        .burger {
+            display: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 5px;
+            border: 1px solid var(--bd);
+            background: var(--b2);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0
+        }
+
+        .burger svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--t1)
+        }
+
+        .sb-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .6);
+            z-index: 19;
+            backdrop-filter: blur(2px)
+        }
+
+        .sb-overlay.open {
+            display: block
+        }
+
+        /* ===== TABLET: 768px – 1024px ===== */
+        @media(max-width:1024px) {
+            .sb {
+                width: 188px
+            }
+
+            .mcs {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .g2 {
+                grid-template-columns: 1fr
+            }
+
+            .coin-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .mkt {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .cnt {
+                padding: 16px
+            }
+        }
+
+        /* ===== MOBILE: max 767px ===== */
+        @media(max-width:767px) {
+
+            /* Sidebar becomes a slide-in drawer */
+            .sb {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 20;
+                transform: translateX(-100%);
+                transition: transform .25s ease;
+                width: 220px;
+                box-shadow: 4px 0 24px rgba(0, 0, 0, .5)
+            }
+
+            .sb.open {
+                transform: translateX(0)
+            }
+
+            .burger {
+                display: flex
+            }
+
+            .main {
+                margin-left: 0 !important
+            }
+
+            .shell {
+                flex-direction: column
+            }
+
+            /* Topbar */
+            .topbar {
+                padding: 0 14px;
+                gap: 10px
+            }
+
+            .tb-t {
+                font-size: 14px
+            }
+
+            /* Content */
+            .cnt {
+                padding: 12px
+            }
+
+            /* Metrics: 2 columns on mobile */
+            .mcs {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 9px;
+                margin-bottom: 14px
+            }
+
+            .mc {
+                padding: 12px
+            }
+
+            .mc-v {
+                font-size: 19px
+            }
+
+            /* Two-col grids → single col */
+            .g2 {
+                grid-template-columns: 1fr;
+                gap: 12px
+            }
+
+            .fr {
+                grid-template-columns: 1fr
+            }
+
+            .coin-grid {
+                grid-template-columns: 1fr
+            }
+
+            .mkt {
+                grid-template-columns: 1fr
+            }
+
+            /* Tables: allow horizontal scroll */
+            .tc {
+                overflow-x: auto
+            }
+
+            table {
+                min-width: 480px
+            }
+
+            /* Hide less important table columns on mobile */
+            .hide-m {
+                display: none
+            }
+
+            /* Login card */
+            .lcard {
+                padding: 24px 18px
+            }
+
+            /* Sidebar footer user text */
+            .sb-un {
+                font-size: 12px
+            }
+
+            .sb-ur {
+                font-size: 10px
+            }
+
+            /* Modal */
+            .modal {
+                width: 96vw;
+                border-radius: 12px
+            }
+
+            .mbody {
+                padding: 14px 16px
+            }
+
+            .mfot {
+                padding: 11px 16px
+            }
+
+            /* Coin cards */
+            .coin-stu-card {
+                padding: 14px
+            }
+
+            .csc-bal {
+                font-size: 22px
+            }
+
+            /* Buttons in table cells */
+            td .btn {
+                padding: 4px 8px;
+                font-size: 11px
+            }
+
+            /* Market cards */
+            .mktc {
+                padding: 18px 14px
+            }
+
+            .mktc-e {
+                font-size: 36px
+            }
+
+            /* Quick amounts */
+            .qa {
+                padding: 4px 8px;
+                font-size: 11px
+            }
+
+            /* Toast */
+            #toasts {
+                bottom: 12px;
+                right: 10px;
+                left: 10px;
+                max-width: none
+            }
+        }
+
+        /* ===== SMALL MOBILE: max 400px ===== */
+        @media(max-width:400px) {
+            .mcs {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .mc-v {
+                font-size: 16px
+            }
+
+            .mc-l {
+                font-size: 9px
+            }
+
+            .topbar {
+                padding: 0 10px
+            }
+
+            .cnt {
+                padding: 10px
+            }
+
+            .cc {
+                font-size: 11px;
+                padding: 4px 9px
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="ls"></div>
+    <div id="app" style="display:none"></div>
+    <div id="toasts"></div>
+    <div class="sb-overlay" id="sb-overlay" onclick="closeSb()"></div>
+    <div class="iv" id="iv" onclick="this.classList.remove('open')">
+        <img id="iv-img" src="" alt="">
+    </div>
+
+    <script>
+        // ============================================================
+        //  DATABASE
+        // ============================================================
+        const DB = {
+            u: null,
+            users: [
+                { id: 0, name: 'Admin', login: ' 1 1 1 1', pass: ' 1 1 1 1', role: 'admin', coins: 0 },
+                { id: 1, name: 'Asadbek', login: 'asadbek', pass: '123', role: 'student', coins: 350 },
+                { id: 2, name: 'Firdavs', login: 'firdavs', pass: '123', role: 'student', coins: 180 },
+                { id: 3, name: 'Muhammadziyo', login: 'muhammadziyo', pass: '123', role: 'student', coins: 520 },
+            ],
+            tasks: [
+                { id: 1, title: "Matematika uy vazifasi", desc: "5-darslik, 1-10 masalalarni yeching. Daftarni rasmga oling.", to: 'all', deadline: '2025-03-20', at: '2025-03-10' },
+                { id: 2, title: "Inglizcha lugat", desc: "20 ta yangi soz yod olib, gapda qollang. Daftarni suratga oling.", to: 1, deadline: '2025-03-18', at: '2025-03-12' },
+                { id: 3, title: "Tarix referati", desc: "Amir Temur haqida 1 sahifali referat yozing va rasmga oling.", to: 'all', deadline: '2025-03-22', at: '2025-03-13' },
+            ],
+            subs: [
+                { id: 1, tid: 1, sid: 1, status: 'pending', img: null, date: '2025-03-14', coins: 0 },
+                { id: 2, tid: 2, sid: 1, status: 'approved', img: null, date: '2025-03-13', coins: 50 },
+            ],
+            att: [
+                { id: 1, sid: 1, date: '2025-03-14', t: 'came', time: '09:05' },
+                { id: 2, sid: 2, date: '2025-03-14', t: 'came', time: '09:18' },
+                { id: 3, sid: 3, date: '2025-03-14', t: 'came', time: '09:22' },
+                { id: 4, sid: 1, date: '2025-03-14', t: 'left', time: '13:45' },
+                { id: 5, sid: 1, date: '2025-03-13', t: 'came', time: '09:10' },
+                { id: 6, sid: 2, date: '2025-03-13', t: 'came', time: '09:15' },
+            ],
+            mkt: [
+                { id: 1, name: 'Futbolka', price: 2000, e: 'Futbolka', desc: 'Maktab futbolkasi (S,M,L,XL)', color: '#4f87f6' },
+                { id: 2, name: 'Klaviatura', price: 3000, e: 'Klaviatura', desc: 'Mexanik USB klaviatura', color: '#18c97a' },
+                { id: 3, name: 'AirPods', price: 5000, e: 'AirPods', desc: 'Simsiz bluetooth quloqchin', color: '#9b70f5' },
+            ],
+            buys: [
+                { id: 1, sid: 3, iid: 1, price: 2000, date: '2025-03-12' },
+            ],
+            coinLog: [
+                { id: 1, sid: 1, type: 'add', amt: 80, reason: "Vazifa bajargan", date: '2025-03-13', by: 'Admin' },
+                { id: 2, sid: 3, type: 'add', amt: 120, reason: "Faollik uchun", date: '2025-03-12', by: 'Admin' },
+                { id: 3, sid: 2, type: 'sub', amt: 50, reason: "Kech kelgan", date: '2025-03-11', by: 'Admin' },
+                { id: 4, sid: 3, type: 'sub', amt: 2000, reason: "Futbolka sotib oldi", date: '2025-03-12', by: 'Market' },
+            ],
+            nid: { task: 4, sub: 3, att: 7, buy: 2, log: 5 }
+        };
+
+        // ============================================================
+        //  HELPERS
+        // ============================================================
+        const $ = id => document.getElementById(id);
+        const ini = n => n.trim().split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+        const today = () => new Date().toISOString().slice(0, 10);
+        const nowT = () => new Date().toLocaleTimeString('uz', { hour: '2-digit', minute: '2-digit' });
+        const uById = id => DB.users.find(u => u.id === id);
+        const fc = v => '🪙 ' + Number(v).toLocaleString();
+        const avC = i => ['av0', 'av1', 'av2', 'av3'][i % 4];
+        const studs = () => DB.users.filter(u => u.role === 'student');
+
+        const avColors = ['rgba(79,135,246,.25)', 'rgba(24,201,122,.25)', 'rgba(155,112,245,.25)', 'rgba(245,164,0,.25)'];
+        const avTC = ['var(--ac)', 'var(--gr)', 'var(--pu)', 'var(--am)'];
+        const acBar = ['#4f87f6', '#18c97a', '#9b70f5', '#f5a400'];
+
+        const mktEmoji = { 'Futbolka': '👕', 'Klaviatura': '⌨️', 'AirPods': '🎧' };
+        function mktE(name) { return mktEmoji[name] || '🎁'; }
+
+        // Mobile sidebar open/close
+        function openSb() {
+            const s = document.querySelector('.sb');
+            if (s) s.classList.add('open');
+            const ov = $('sb-overlay');
+            if (ov) ov.classList.add('open');
+        }
+        function closeSb() {
+            const s = document.querySelector('.sb');
+            if (s) s.classList.remove('open');
+            const ov = $('sb-overlay');
+            if (ov) ov.classList.remove('open');
+        }
+
+        // ============================================================
+        //  ICONS
+        // ============================================================
+        const IC = {
+            dash: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
+            users: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>`,
+            task: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>`,
+            mkt: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>`,
+            att: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14l2 2 4-4"/></svg>`,
+            coin: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v2m0 8v2M8.5 9a3.5 3.5 0 007 0c0-1.93-1.57-3.5-3.5-3.5S8.5 7.07 8.5 9zM8.5 15a3.5 3.5 0 007 0"/></svg>`,
+            spin: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0110 10"/><path d="M12 8v4l3 3"/></svg>`,
+            out: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>`,
+        };
+
+        // ============================================================
+        //  TOAST
+        // ============================================================
+        function toast(msg, type = 'ok') {
+            const c = { ok: 'var(--gr)', err: 'var(--re)', info: 'var(--ac)', warn: 'var(--am)' };
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.innerHTML = `<div class="td2" style="background:${c[type] || c.ok}"></div><span>${msg}</span>`;
+            $('toasts').appendChild(t);
+            setTimeout(() => {
+                t.style.opacity = '0';
+                t.style.transition = 'opacity .3s';
+                setTimeout(() => t.remove(), 300);
+            }, 2800);
+        }
+
+        function openM(id) { $(id).classList.add('open'); }
+        function closeM(id) { $(id).classList.remove('open'); }
+
+        function viewImg(subId) {
+            const s = DB.subs.find(x => x.id === subId);
+            if (!s || !s.img) return;
+            $('iv-img').src = s.img;
+            $('iv').classList.add('open');
+        }
+
+        // ============================================================
+        //  LOGIN
+        // ============================================================
+        function renderLogin() {
+            $('ls').innerHTML = `
+  <div class="lpg">
+    <div class="lcard">
+      <div class="llogo">
+        <div class="llogo-i">
+          <svg viewBox="0 0 24 24"><path d="M12 3L2 8l10 6 10-6-10-6zM2 14l10 6 10-6M2 19l10 6 10-6"/></svg>
+        </div>
+        <div>
+          <div class="llogo-n">EduControl</div>
+          <div class="llogo-s">O'quv markazi tizimi</div>
+        </div>
+      </div>
+      <div class="ltitle">Xush kelibsiz!</div>
+      <div class="lsub">Hisobingizga kiring</div>
+    
+      <div class="fg">
+        <label class="fl">Login</label>
+        <input class="fi" id="l-login" placeholder="Login kiriting"
+          onkeydown="if(event.key==='Enter')doLogin()"/>
+      </div>
+      <div class="fg">
+        <label class="fl">Parol</label>
+        <input class="fi" type="password" id="l-pass" placeholder="••••••••"
+          onkeydown="if(event.key==='Enter')doLogin()"/>
+      </div>
+      <div id="l-err" style="color:var(--re);font-size:12px;margin-bottom:10px;display:none">
+        Login yoki parol xato!
+      </div>
+      <button class="btn btn-p btn-fw" onclick="doLogin()">Kirish</button>
+    </div>
+  </div>`;
+        }
+
+        function doLogin() {
+            const login = $('l-login').value.trim().toLowerCase();
+            const pass = $('l-pass').value;
+            const user = DB.users.find(u => u.login.toLowerCase() === login && u.pass === pass);
+            if (!user) { $('l-err').style.display = 'block'; return; }
+            DB.u = user;
+            $('ls').style.display = 'none';
+            $('app').style.display = 'block';
+            user.role === 'admin' ? buildAdmin() : buildStudent();
+        }
+
+        function logout() {
+            DB.u = null;
+            $('app').innerHTML = '';
+            $('ls').style.display = 'block';
+            renderLogin();
+        }
+
+        // ============================================================
+        //  SIDEBAR
+        // ============================================================
+        function buildSidebar(items, user, role) {
+            const si = studs().findIndex(s => s.id === user.id);
+            const avS = user.role === 'admin'
+                ? `background:linear-gradient(135deg,var(--ac),var(--pu))`
+                : [`background:rgba(79,135,246,.3)`, `background:rgba(24,201,122,.3)`,
+                    `background:rgba(155,112,245,.3)`, `background:rgba(245,164,0,.3)`][si % 4];
+
+            return `
+  <div class="sb">
+    <div class="sbl">
+      <div class="sbl-row">
+        <div class="sbl-ic">
+          <svg viewBox="0 0 24 24"><path d="M12 3L2 8l10 6 10-6-10-6zM2 14l10 6 10-6"/></svg>
+        </div>
+        <div>
+          <div class="sbl-n">EduControl</div>
+          <div class="sbl-s">${role}</div>
+        </div>
+      </div>
+    </div>
+    <div class="sb-nav" id="nav-wrap">
+      ${items.map((it, i) => `
+        <div class="si ${i === 0 ? 'active' : ''}" data-pg="${it.id}"
+          style="animation-delay:${i * .04}s">
+          ${it.ic} ${it.label}
+          ${it.bdg ? `<span class="si-bdg" id="${it.bdg}" style="display:none">0</span>` : ''}
+        </div>`).join('')}
+    </div>
+    <div class="sb-ft">
+      <div class="sb-usr">
+        <div class="sb-av" style="${avS};color:#fff">${ini(user.name)}</div>
+        <div>
+          <div class="sb-un">${user.name}</div>
+          <div class="sb-ur">${user.role === 'admin' ? 'Administrator' : "O'quvchi"}</div>
+        </div>
+        <div class="sb-lo" onclick="logout()" title="Chiqish">${IC.out}</div>
+      </div>
+    </div>
+  </div>`;
+        }
+
+        // ============================================================
+        //  ADMIN — BUILD
+        // ============================================================
+        function buildAdmin() {
+            const items = [
+                { id: 'dash', ic: IC.dash, label: 'Dashboard' },
+                { id: 'studs', ic: IC.users, label: "O'quvchilar" },
+                { id: 'coins', ic: IC.coin, label: 'Coin boshqaruv' },
+                { id: 'tasks', ic: IC.task, label: 'Vazifalar', bdg: 'a-sub-bdg' },
+                { id: 'mkt', ic: IC.mkt, label: 'Market' },
+                { id: 'att', ic: IC.att, label: 'Davomat' },
+            ];
+
+            $('app').innerHTML = `
+  <div class="shell">
+    ${buildSidebar(items, DB.u, 'Admin Panel')}
+    <div class="main">
+      <div class="topbar">
+        <div class="burger" onclick="openSb()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12h18M3 6h18M3 18h18"/>
+          </svg>
+        </div>
+        <div class="tb-t" id="a-tit">Dashboard</div>
+        <div class="tb-r">
+          <span style="font-size:11px;color:var(--t2)">${today()}</span>
+        </div>
+      </div>
+      <div class="cnt" id="a-cnt">
+        <div class="pg active" id="a-pg-dash"></div>
+        <div class="pg"        id="a-pg-studs"></div>
+        <div class="pg"        id="a-pg-coins"></div>
+        <div class="pg"        id="a-pg-tasks"></div>
+        <div class="pg"        id="a-pg-mkt"></div>
+        <div class="pg"        id="a-pg-att"></div>
+      </div>
+    </div>
+  </div>
+  ${adminModals()}`;
+
+            document.querySelectorAll('.si').forEach(el => el.addEventListener('click', () => {
+                document.querySelectorAll('.si').forEach(s => s.classList.remove('active'));
+                el.classList.add('active');
+                document.querySelectorAll('#a-cnt .pg').forEach(p => p.classList.remove('active'));
+                closeSb();
+                const pg = el.dataset.pg;
+                $('a-pg-' + pg).classList.add('active');
+                const titles = {
+                    dash: 'Dashboard', studs: "O'quvchilar",
+                    coins: 'Coin boshqaruv', tasks: 'Vazifalar',
+                    mkt: 'Market', att: 'Davomat'
+                };
+                $('a-tit').textContent = titles[pg] || pg;
+                ({
+                    dash: rADash, studs: rAStuds, coins: rACoins,
+                    tasks: rATasks, mkt: rAMkt, att: rAAtt
+                }[pg] || function () { })();
+            }));
+
+            updSubBdg();
+            rADash();
+        }
+
+        function updSubBdg() {
+            const n = DB.subs.filter(s => s.status === 'pending').length;
+            const el = $('a-sub-bdg');
+            if (el) { el.textContent = n; el.style.display = n > 0 ? 'inline-block' : 'none'; }
+        }
+
+        // ---- DASHBOARD ----
+        function rADash() {
+            const ss = studs();
+            const tdAtt = DB.att.filter(a => a.date === today() && a.t === 'came').length;
+            const pend = DB.subs.filter(s => s.status === 'pending').length;
+            const totalC = DB.coinLog.filter(l => l.type === 'add').reduce((a, l) => a + l.amt, 0);
+            const totalS = DB.coinLog.filter(l => l.type === 'sub').reduce((a, l) => a + l.amt, 0);
+
+            $('a-pg-dash').innerHTML = `
+    <div class="mcs">
+      ${[
+                    { l: "Jami o'quvchilar", v: ss.length, s: 'Faol', c: 'var(--ac)' },
+                    { l: 'Bugun keldi', v: tdAtt, s: today(), c: 'var(--gr)' },
+                    { l: 'Kutilayotgan', v: pend, s: 'Tekshiruv kerak', c: 'var(--am)' },
+                    { l: 'Berilgan coinlar', v: fc(totalC), s: 'Ayirilgan: ' + fc(totalS), c: 'var(--go)' },
+                ].map((m, i) => `
+        <div class="mc st" style="animation-delay:${i * .06}s">
+          <div class="mc-l">${m.l}</div>
+          <div class="mc-v" style="color:${m.c}">${m.v}</div>
+          <div class="mc-s">${m.s}</div>
+        </div>`).join('')}
+    </div>
+    <div class="g2">
+      <div>
+        <div class="sh"><div class="sht">O'quvchilar holati</div></div>
+        <div class="tc">
+          <table>
+            <thead><tr><th>Ism</th><th>Coinlar</th><th>Bugun</th></tr></thead>
+            <tbody>
+              ${ss.map((s, i) => {
+                    const a = DB.att.filter(x => x.sid === s.id && x.date === today());
+                    const came = a.some(x => x.t === 'came');
+                    const left = a.some(x => x.t === 'left');
+                    const pill = came
+                        ? (left ? `<span class="pl p-am">Ketdi</span>` : `<span class="pl p-gr">Keldi</span>`)
+                        : `<span class="pl p-gy">Kelmadi</span>`;
+                    return `<tr class="st" style="animation-delay:${i * .04}s">
+                  <td><div class="nc">
+                    <div class="av ${avC(i)}">${ini(s.name)}</div>
+                    <span style="font-weight:500">${s.name}</span>
+                  </div></td>
+                  <td><span style="color:var(--go);font-weight:600">${fc(s.coins)}</span></td>
+                  <td>${pill}</td>
+                </tr>`;
+                }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="sh"><div class="sht">So'nggi coin harakatlari</div></div>
+        <div class="tc">
+          <table>
+            <thead><tr><th>O'quvchi</th><th>Miqdor</th><th>Sabab</th></tr></thead>
+            <tbody>
+              ${[...DB.coinLog].reverse().slice(0, 6).map(l => {
+                    const st = uById(l.sid);
+                    return `<tr class="${l.type === 'add' ? 'log-row-add' : 'log-row-sub'}">
+                  <td style="font-size:12px">${st ? st.name : '—'}</td>
+                  <td class="${l.type === 'add' ? 'log-amt-add' : 'log-amt-sub'}">
+                    ${l.type === 'add' ? '+' : '-'}${l.amt}
+                  </td>
+                  <td style="font-size:11px;color:var(--t1)">${l.reason}</td>
+                </tr>`;
+                }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>`;
+        }
+
+        // ---- STUDENTS ----
+        function rAStuds() {
+            const ss = studs();
+            $('a-pg-studs').innerHTML = `
+    <div class="sh">
+      <div class="sht">O'quvchilar (${ss.length})</div>
+      <button class="btn btn-p btn-sm" onclick="openM('m-add-stu')">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg>
+        Yangi o'quvchi
+      </button>
+    </div>
+    <div class="tc">
+      <table>
+        <thead>
+          <tr><th>Ism</th><th>Login / Parol</th><th>Coinlar</th><th>Bugun</th><th>Amallar</th></tr>
+        </thead>
+        <tbody>
+          ${ss.length === 0 ? `<tr><td colspan="5"><div class="empty">
+            <div class="empty-e">👤</div>
+            <div class="empty-t">Hali o'quvchi yo'q</div>
+            <div class="empty-s">Yangi o'quvchi qo'shing</div>
+          </div></td></tr>` :
+                    ss.map((s, i) => {
+                        const a = DB.att.filter(x => x.sid === s.id && x.date === today());
+                        const came = a.some(x => x.t === 'came');
+                        const left = a.some(x => x.t === 'left');
+                        const pill = came
+                            ? (left ? `<span class="pl p-am">Ketdi</span>` : `<span class="pl p-gr">Keldi</span>`)
+                            : `<span class="pl p-gy">Kelmadi</span>`;
+                        return `<tr class="st" style="animation-delay:${i * .05}s">
+              <td><div class="nc">
+                <div class="av ${avC(i)}">${ini(s.name)}</div>
+                <div>
+                  <div style="font-weight:500">${s.name}</div>
+                  <div style="font-size:10.5px;color:var(--t2)">${s.phone || ''}</div>
+                </div>
+              </div></td>
+              <td>
+                <div style="font-family:var(--mono);font-size:11.5px;color:var(--t1)">${s.login}</div>
+                <div style="font-family:var(--mono);font-size:10.5px;color:var(--t2)">••• ${s.pass}</div>
+              </td>
+              <td><span style="color:var(--go);font-weight:600">${fc(s.coins)}</span></td>
+              <td>${pill}</td>
+              <td>
+                <div style="display:flex;gap:5px;flex-wrap:wrap">
+                  <button class="btn btn-sm btn-g" onclick="quickCoin(${s.id},'add')">+ Coin</button>
+                  <button class="btn btn-sm btn-r" onclick="quickCoin(${s.id},'sub')">− Coin</button>
+                  ${!came ? `<button class="btn btn-sm btn-g"
+                    onclick="markA(${s.id},'came');rAStuds()">✓ Keldi</button>` : ''}
+                  ${came && !left ? `<button class="btn btn-sm btn-r"
+                    onclick="markA(${s.id},'left');rAStuds()">← Ketdi</button>` : ''}
+                  <button class="btn btn-sm btn-r" onclick="delStu(${s.id})"
+                    style="border-color:rgba(239,79,78,.15)">🗑</button>
+                </div>
+              </td>
+            </tr>`;
+                    }).join('')}
+        </tbody>
+      </table>
+    </div>`;
+        }
+
+        function markA(sid, type) {
+            if (DB.att.find(a => a.sid === sid && a.date === today() && a.t === type)) return;
+            DB.att.push({ id: DB.nid.att++, sid, date: today(), t: type, time: nowT() });
+            const s = uById(sid);
+            toast(`${s.name} ${type === 'came' ? 'keldi' : 'ketdi'}`, type === 'came' ? 'ok' : 'warn');
+        }
+
+        function delStu(sid) {
+            const s = uById(sid);
+            if (!confirm(`"${s.name}" o'quvchini o'chirishni tasdiqlaysizmi?`)) return;
+            DB.users = DB.users.filter(u => u.id !== sid);
+            DB.subs = DB.subs.filter(x => x.sid !== sid);
+            DB.att = DB.att.filter(x => x.sid !== sid);
+            DB.buys = DB.buys.filter(x => x.sid !== sid);
+            DB.coinLog = DB.coinLog.filter(x => x.sid !== sid);
+            toast(`${s.name} o'chirildi`, 'warn');
+            rAStuds(); rADash();
+        }
+
+        function addStu() {
+            const name = $('as-name').value.trim();
+            const login = $('as-login').value.trim().toLowerCase();
+            const pass = $('as-pass').value.trim();
+            const phone = $('as-phone').value.trim();
+            if (!name) { toast("Ism kiritilishi shart!", 'err'); return; }
+            if (!login) { toast("Login kiritilishi shart!", 'err'); return; }
+            if (!pass) { toast("Parol kiritilishi shart!", 'err'); return; }
+            if (DB.users.find(u => u.login.toLowerCase() === login)) {
+                toast("Bu login allaqachon band!", 'err'); return;
+            }
+            const newId = Math.max(...DB.users.map(u => u.id)) + 1;
+            DB.users.push({ id: newId, name, login, pass, phone, role: 'student', coins: 0 });
+            closeM('m-add-stu');
+            ['as-name', 'as-login', 'as-pass', 'as-phone'].forEach(id => $(id).value = '');
+            toast(`✅ ${name} muvaffaqiyatli qo'shildi!`, 'ok');
+            rAStuds(); rADash();
+        }
+
+        // ---- COIN MANAGEMENT ----
+        function rACoins() {
+            const ss = studs();
+            const totalC = ss.reduce((a, s) => a + s.coins, 0);
+            const todayAdd = DB.coinLog.filter(l => l.date === today() && l.type === 'add').reduce((a, l) => a + l.amt, 0);
+            const todaySub = DB.coinLog.filter(l => l.date === today() && l.type === 'sub').reduce((a, l) => a + l.amt, 0);
+
+            $('a-pg-coins').innerHTML = `
+    <div class="mcs">
+      ${[
+                    { l: "Jami coinlar", v: fc(totalC), s: "Barcha o'quvchilar", c: 'var(--go)' },
+                    { l: 'Bugun berildi', v: fc(todayAdd), s: today(), c: 'var(--gr)' },
+                    { l: 'Bugun ayirildi', v: fc(todaySub), s: today(), c: 'var(--re)' },
+                    { l: 'Jami harakatlar', v: DB.coinLog.length, s: 'ta yozuv', c: 'var(--ac)' },
+                ].map((m, i) => `
+        <div class="mc st" style="animation-delay:${i * .05}s">
+          <div class="mc-l">${m.l}</div>
+          <div class="mc-v" style="color:${m.c}">${m.v}</div>
+          <div class="mc-s">${m.s}</div>
+        </div>`).join('')}
+    </div>
+
+    <div class="sh"><div class="sht">O'quvchilarni boshqarish</div></div>
+    <div class="coin-grid">
+      ${ss.map((s, i) => {
+                    const myLogs = DB.coinLog.filter(l => l.sid === s.id);
+                    const added = myLogs.filter(l => l.type === 'add').reduce((a, l) => a + l.amt, 0);
+                    const subbed = myLogs.filter(l => l.type === 'sub').reduce((a, l) => a + l.amt, 0);
+                    return `
+        <div class="coin-stu-card st" style="animation-delay:${i * .07}s">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${acBar[i % 4]}"></div>
+          <div class="csc-top">
+            <div class="csc-av" style="background:${avColors[i % 4]};color:${avTC[i % 4]}">
+              ${ini(s.name)}
+            </div>
+            <div>
+              <div class="csc-name">${s.name}</div>
+              <div class="csc-login">${s.login}</div>
+            </div>
+          </div>
+          <div class="csc-bal">
+            ${s.coins.toLocaleString()}
+            <span class="csc-bal-lbl">coin</span>
+          </div>
+          <div style="display:flex;gap:10px;margin-bottom:10px;font-size:11px">
+            <span style="color:var(--gr)">+${added.toLocaleString()} berildi</span>
+            <span style="color:var(--re)">-${subbed.toLocaleString()} ayirildi</span>
+          </div>
+          <div class="csc-inp-row">
+            <input class="csc-inp" id="ci-${s.id}" type="number"
+              placeholder="Miqdor kiriting..." min="1"/>
+          </div>
+          <div class="quick-amts">
+            ${[10, 25, 50, 100, 200].map(n =>
+                        `<div class="qa" onclick="setAmt(${s.id},${n})">${n}</div>`
+                    ).join('')}
+          </div>
+          <div style="margin-top:8px;margin-bottom:8px">
+            <input class="csc-inp" id="cr-${s.id}"
+              placeholder="Sabab (masalan: darsda faol bolgan)..."
+              style="width:100%"/>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+            <button class="btn btn-g" onclick="doCoin(${s.id},'add')">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M8 3v10M3 8h10"/>
+              </svg>
+              Coin qoshish
+            </button>
+            <button class="btn btn-r" onclick="doCoin(${s.id},'sub')">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M3 8h10"/>
+              </svg>
+              Coin ayirish
+            </button>
+          </div>
+        </div>`;
+                }).join('')}
+    </div>
+
+    <hr>
+    <div class="sh">
+      <div class="sht">Coin harakatlari tarixi</div>
+      <div style="display:flex;gap:6px" id="clf">
+        <button class="btn btn-sm btn-p" onclick="filterCL('all',this)">Barchasi</button>
+        <button class="btn btn-sm" style="color:var(--gr);border-color:rgba(24,201,122,.25)"
+          onclick="filterCL('add',this)">+ Qoshilgan</button>
+        <button class="btn btn-sm" style="color:var(--re);border-color:rgba(239,79,78,.25)"
+          onclick="filterCL('sub',this)">- Ayirilgan</button>
+      </div>
+    </div>
+    <div id="cl-wrap"></div>`;
+
+            renderCL('all');
+        }
+
+        function renderCL(filter) {
+            let logs = [...DB.coinLog].reverse();
+            if (filter === 'add') logs = logs.filter(l => l.type === 'add');
+            if (filter === 'sub') logs = logs.filter(l => l.type === 'sub');
+            const wrap = $('cl-wrap');
+            if (!wrap) return;
+            if (!logs.length) {
+                wrap.innerHTML = `<div class="empty"><div class="empty-e">📋</div>
+      <div class="empty-t">Yozuvlar yoq</div></div>`;
+                return;
+            }
+            wrap.innerHTML = `
+    <div class="tc">
+      <table>
+        <thead>
+          <tr>
+            <th>Sana</th><th>Oqvuchi</th><th>Tur</th>
+            <th>Miqdor</th><th>Sabab</th><th>Kim</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${logs.map(l => {
+                const st = uById(l.sid);
+                const idx = studs().findIndex(s => s.id === l.sid);
+                return `<tr class="${l.type === 'add' ? 'log-row-add' : 'log-row-sub'}">
+              <td style="font-family:var(--mono);font-size:11px;color:var(--t2)">${l.date}</td>
+              <td>
+                <div class="nc">
+                  <div class="av ${avC(idx)}" style="width:22px;height:22px;font-size:9px">
+                    ${st ? ini(st.name) : '?'}
+                  </div>
+                  <span>${st ? st.name : '—'}</span>
+                </div>
+              </td>
+              <td>${l.type === 'add'
+                        ? `<span class="pl p-gr">+ Qoshildi</span>`
+                        : `<span class="pl p-re">- Ayirildi</span>`}</td>
+              <td class="${l.type === 'add' ? 'log-amt-add' : 'log-amt-sub'}">
+                ${l.type === 'add' ? '+' : '-'}${l.amt.toLocaleString()}
+              </td>
+              <td style="font-size:12px;color:var(--t1)">${l.reason || '—'}</td>
+              <td style="font-size:11px;color:var(--t2)">${l.by}</td>
+            </tr>`;
+            }).join('')}
+        </tbody>
+      </table>
+    </div>`;
+        }
+
+        function filterCL(f, el) {
+            document.querySelectorAll('#clf .btn').forEach(b => b.classList.remove('btn-p'));
+            el.classList.add('btn-p');
+            renderCL(f);
+        }
+
+        function setAmt(sid, amt) {
+            const el = $('ci-' + sid);
+            if (el) el.value = amt;
+        }
+
+        function doCoin(sid, type) {
+            const s = uById(sid);
+            const amt = parseInt($('ci-' + sid).value) || 0;
+            const reason = ($('cr-' + sid).value.trim()) ||
+                (type === 'add' ? 'Admin tomonidan berildi' : 'Admin tomonidan ayirildi');
+
+            if (amt <= 0) { toast('Miqdor kiriting!', 'err'); return; }
+            if (type === 'sub' && s.coins < amt) {
+                toast(`${s.name}da yetarli coin yoq! (${fc(s.coins)})`, 'err');
+                return;
+            }
+
+            s.coins = type === 'add' ? s.coins + amt : s.coins - amt;
+            DB.coinLog.push({
+                id: DB.nid.log++, sid, type, amt, reason,
+                date: today(), by: 'Admin'
+            });
+            $('ci-' + sid).value = '';
+            $('cr-' + sid).value = '';
+
+            toast(
+                `${type === 'add' ? 'Berildi' : 'Ayirildi'}: ${s.name} | ${type === 'add' ? '+' : '-'}${fc(amt)} | Balans: ${fc(s.coins)}`,
+                type === 'add' ? 'ok' : 'warn'
+            );
+            rACoins();
+            rADash();
+        }
+
+        // Quick coin modal (from students page)
+        function quickCoin(sid, type) {
+            const s = uById(sid);
+            $('qc-name').textContent = s.name;
+            $('qc-bal').textContent = fc(s.coins);
+            $('qc-id').value = sid;
+            $('qc-type').value = type;
+            $('qc-amt').value = '';
+            $('qc-rsn').value = '';
+            $('qc-head').textContent = type === 'add' ? 'Coin qoshish' : 'Coin ayirish';
+            $('qc-btn').textContent = type === 'add' ? '+ Qoshish' : '- Ayirish';
+            $('qc-btn').className = `btn ${type === 'add' ? 'btn-g' : 'btn-r'}`;
+            openM('m-qc');
+        }
+
+        function doQC() {
+            const sid = parseInt($('qc-id').value);
+            const type = $('qc-type').value;
+            const amt = parseInt($('qc-amt').value) || 0;
+            const reason = $('qc-rsn').value.trim() ||
+                (type === 'add' ? 'Admin tomonidan berildi' : 'Admin tomonidan ayirildi');
+            const s = uById(sid);
+
+            if (amt <= 0) { toast('Miqdor kiriting!', 'err'); return; }
+            if (type === 'sub' && s.coins < amt) {
+                toast(`Yetarli coin yoq! (${fc(s.coins)})`, 'err');
+                return;
+            }
+
+            s.coins = type === 'add' ? s.coins + amt : s.coins - amt;
+            DB.coinLog.push({
+                id: DB.nid.log++, sid, type, amt, reason,
+                date: today(), by: 'Admin'
+            });
+            closeM('m-qc');
+            toast(
+                `${s.name}: ${type === 'add' ? '+' : '-'}${fc(amt)} | Balans: ${fc(s.coins)}`,
+                type === 'add' ? 'ok' : 'warn'
+            );
+            rAStuds();
+            rADash();
+        }
+
+        // ---- TASKS ----
+        function rATasks() {
+            const pend = DB.subs.filter(s => s.status === 'pending').length;
+            $('a-pg-tasks').innerHTML = `
+    <div class="sh">
+      <div class="sht">Vazifalar</div>
+      <button class="btn btn-p btn-sm" onclick="prepNT();openM('m-nt')">+ Yangi vazifa</button>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="sh"><div class="sht">Barcha vazifalar (${DB.tasks.length})</div></div>
+        ${DB.tasks.length === 0
+                    ? `<div class="empty"><div class="empty-t">Hali vazifa yoq</div></div>`
+                    : DB.tasks.map((t, i) => `
+            <div class="card st" style="animation-delay:${i * .05}s">
+              <div class="ct">${t.title}</div>
+              <div class="cd">${t.desc}</div>
+              <div class="cf">
+                <span class="pl p-bl">${t.to === 'all' ? "Hammaga" : uById(t.to)?.name || '—'}</span>
+                <span style="font-size:11px;color:var(--t2)">Muddat: ${t.deadline}</span>
+                <button class="btn btn-sm btn-r" onclick="delTask(${t.id})"
+                  style="margin-left:auto">Bekor</button>
+              </div>
+            </div>`).join('')}
+      </div>
+      <div>
+        <div class="sh">
+          <div class="sht">
+            Topshirishlar
+            ${pend > 0 ? `<span class="pl p-am" style="margin-left:6px">${pend} kutilmoqda</span>` : ''}
+          </div>
+        </div>
+        ${DB.subs.length === 0
+                    ? `<div class="empty"><div class="empty-e">📬</div>
+             <div class="empty-t">Hali topshirish yoq</div></div>`
+                    : [...DB.subs].reverse().map((sub, i) => {
+                        const st = uById(sub.sid);
+                        const tk = DB.tasks.find(t => t.id === sub.tid);
+                        const si2 = studs().findIndex(s => s.id === sub.sid);
+                        const pill = sub.status === 'pending'
+                            ? `<span class="pl p-am">Kutilmoqda</span>`
+                            : sub.status === 'approved'
+                                ? `<span class="pl p-gr">Tasdiqlandi</span>`
+                                : `<span class="pl p-re">Rad etildi</span>`;
+                        return `
+              <div class="card st" style="animation-delay:${i * .05}s">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                  <div class="av ${avC(si2)}">${st ? ini(st.name) : '?'}</div>
+                  <div style="flex:1">
+                    <div style="font-weight:500;font-size:13px">${st ? st.name : '—'}</div>
+                    <div style="font-size:11px;color:var(--t1)">${tk ? tk.title : '—'}</div>
+                  </div>
+                  <div>${pill}</div>
+                </div>
+                ${sub.img
+                                ? `<img src="${sub.img}"
+                      style="width:100%;max-height:130px;object-fit:cover;
+                        border-radius:6px;margin-bottom:8px;cursor:zoom-in"
+                      onclick="viewImg(${sub.id})">`
+                                : `<div style="background:var(--b2);border-radius:6px;padding:10px;
+                      text-align:center;font-size:11.5px;color:var(--t2);
+                      margin-bottom:8px">Rasm yuklanmagan</div>`}
+                <div style="font-size:11px;color:var(--t2);margin-bottom:8px">
+                  Sana: ${sub.date}
+                </div>
+                ${sub.status === 'pending' ? `
+                  <div style="display:flex;gap:6px">
+                    <button class="btn btn-g btn-sm"
+                      onclick="openApr(${sub.id})">✅ Tasdiqlash</button>
+                    <button class="btn btn-r btn-sm"
+                      onclick="rejSub(${sub.id})">✗ Rad etish</button>
+                  </div>` : ''}
+              </div>`;
+                    }).join('')}
+      </div>
+    </div>`;
+        }
+
+        function delTask(id) {
+            DB.tasks = DB.tasks.filter(t => t.id !== id);
+            toast("Vazifa ochirildi", 'warn');
+            rATasks();
+        }
+
+        function openApr(sid) {
+            const sub = DB.subs.find(s => s.id === sid);
+            const st = uById(sub.sid);
+            const tk = DB.tasks.find(t => t.id === sub.tid);
+            sub.status = 'approved';
+            sub.coins = 0;
+            updSubBdg();
+            toast(`✅ ${st.name} — "${tk ? tk.title : ''}" tasdiqlandi`, 'ok');
+            rATasks();
+            rADash();
+        }
+
+        function rejSub(sid) {
+            const sub = DB.subs.find(s => s.id === sid);
+            sub.status = 'rejected';
+            const st = uById(sub.sid);
+            updSubBdg();
+            toast(`${st.name} topshirigi rad etildi`, 'err');
+            rATasks();
+        }
+
+        function prepNT() {
+            $('nt-t').value = '';
+            $('nt-d').value = '';
+            $('nt-dl').value = '';
+            const sel = $('nt-to');
+            sel.innerHTML = `<option value="all">Barcha oquvchilar</option>` +
+                studs().map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+        }
+
+        function doNT() {
+            const title = $('nt-t').value.trim();
+            const desc = $('nt-d').value.trim();
+            if (!title || !desc) { toast("Nom va tavsif toldirilishi shart!", 'err'); return; }
+            const toV = $('nt-to').value;
+            DB.tasks.push({
+                id: DB.nid.task++, title, desc,
+                to: toV === 'all' ? 'all' : parseInt(toV),
+                deadline: $('nt-dl').value || today(),
+                at: today()
+            });
+            closeM('m-nt');
+            toast(`"${title}" vazifasi yaratildi`, 'ok');
+            rATasks();
+        }
+
+        // ---- MARKET ----
+        function rAMkt() {
+            $('a-pg-mkt').innerHTML = `
+    <div class="sh"><div class="sht">Market mahsulotlari</div></div>
+    <div class="mkt" style="margin-bottom:20px">
+      ${DB.mkt.map((it, i) => `
+        <div class="mktc st" style="animation-delay:${i * .06}s">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${it.color}"></div>
+          <span class="mktc-e">${mktE(it.name)}</span>
+          <div class="mktc-n">${it.name}</div>
+          <div class="mktc-d">${it.desc}</div>
+          <div class="mktc-p">${fc(it.price)}</div>
+          <span class="pl p-gr">Mavjud</span>
+        </div>`).join('')}
+    </div>
+    <hr>
+    <div class="sh"><div class="sht">Sotib olishlar tarixi</div></div>
+    ${DB.buys.length === 0
+                    ? `<div class="empty"><div class="empty-e">🛒</div>
+         <div class="empty-t">Hali sotib olinmagan</div></div>`
+                    : `<div class="tc">
+           <table>
+             <thead>
+               <tr><th>Oqvuchi</th><th>Mahsulot</th><th>Narx</th><th>Sana</th></tr>
+             </thead>
+             <tbody>
+               ${[...DB.buys].reverse().map(b => {
+                        const st = uById(b.sid);
+                        const it = DB.mkt.find(m => m.id === b.iid);
+                        return `<tr>
+                   <td>${st ? st.name : '—'}</td>
+                   <td>${it ? mktE(it.name) + ' ' + it.name : '—'}</td>
+                   <td style="color:var(--go);font-weight:500">${fc(b.price)}</td>
+                   <td style="font-size:11px;color:var(--t1)">${b.date}</td>
+                 </tr>`;
+                    }).join('')}
+             </tbody>
+           </table>
+         </div>`}`;
+        }
+
+        // ---- ATTENDANCE ----
+        function rAAtt() {
+            const ss = studs();
+            const dates = [...new Set(DB.att.map(a => a.date))].sort().reverse();
+            $('a-pg-att').innerHTML = `
+    <div class="sh"><div class="sht">Davomat nazorati</div></div>
+    <div class="card" style="margin-bottom:16px">
+      <div style="font-weight:600;margin-bottom:10px">Bugun — ${today()}</div>
+      ${ss.map((s, i) => {
+                const a = DB.att.filter(x => x.sid === s.id && x.date === today());
+                const came = a.find(x => x.t === 'came');
+                const left = a.find(x => x.t === 'left');
+                return `<div class="ar">
+          <div class="av ${avC(i)}">${ini(s.name)}</div>
+          <div style="flex:1">
+            <div style="font-weight:500;font-size:13px">${s.name}</div>
+            <div style="font-size:11px;color:var(--t1)">
+              ${came
+                        ? `Keldi: ${came.time}${left ? ' | Ketdi: ' + left.time : ''}`
+                        : 'Hali kelmagan'}
+            </div>
+          </div>
+          <div style="display:flex;gap:5px">
+            ${!came ? `<button class="btn btn-sm btn-g"
+              onclick="markA(${s.id},'came');rAAtt()">Keldi</button>` : ''}
+            ${came && !left ? `<button class="btn btn-sm btn-r"
+              onclick="markA(${s.id},'left');rAAtt()">Ketdi</button>` : ''}
+            ${came && left ? `<span class="pl p-gy">Ketib boldi</span>` : ''}
+          </div>
+        </div>`;
+            }).join('')}
+    </div>
+    <div class="sh"><div class="sht">Davomat tarixi</div></div>
+    ${dates.slice(0, 6).map(d => `
+      <div class="card" style="padding:13px;margin-bottom:8px">
+        <div style="font-size:11.5px;color:var(--t1);font-weight:500;margin-bottom:8px">
+          ${d}
+        </div>
+        ${ss.map(s => {
+                const a = DB.att.filter(x => x.sid === s.id && x.date === d);
+                const c = a.find(x => x.t === 'came');
+                const l = a.find(x => x.t === 'left');
+                return `<div style="display:flex;align-items:center;gap:8px;
+            padding:5px 0;border-bottom:1px solid var(--bd)">
+            <span style="flex:1;font-size:12.5px;font-weight:500">${s.name}</span>
+            ${c ? `<span class="pl p-gr">${c.time}</span>` : `<span class="pl p-gy">Kelmadi</span>`}
+            ${l ? `<span class="pl p-am">${l.time}</span>` : ''}
+          </div>`;
+            }).join('')}
+      </div>`).join('')}`;
+        }
+
+        // ---- ADMIN MODALS ----
+        function adminModals() {
+            return `
+  <!-- QUICK COIN MODAL -->
+  <div class="mbg" id="m-qc" onclick="if(event.target===this)closeM('m-qc')">
+    <div class="modal">
+      <div class="mh">
+        <div class="mh-t" id="qc-head">Coin</div>
+        <button class="mcl" onclick="closeM('m-qc')">x</button>
+      </div>
+      <div class="mbody">
+        <input type="hidden" id="qc-id">
+        <input type="hidden" id="qc-type">
+        <div style="background:var(--b2);border-radius:var(--r);padding:11px 14px;
+          margin-bottom:14px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-weight:500" id="qc-name"></span>
+          <span style="color:var(--go);font-weight:600" id="qc-bal"></span>
+        </div>
+        <div class="fg">
+          <label class="fl">Coin miqdori</label>
+          <input class="fi" id="qc-amt" type="number" placeholder="50" min="1"/>
+          <div class="quick-amts" style="margin-top:7px">
+            ${[10, 25, 50, 100, 200, 500].map(n =>
+                `<div class="qa" onclick="document.getElementById('qc-amt').value=${n}">${n}</div>`
+            ).join('')}
+          </div>
+        </div>
+        <div class="fg" style="margin:0">
+          <label class="fl">Sabab</label>
+          <input class="fi" id="qc-rsn"
+            placeholder="Masalan: Darsda faol bolgan..."/>
+        </div>
+      </div>
+      <div class="mfot">
+        <button class="btn" onclick="closeM('m-qc')">Bekor</button>
+        <button class="btn btn-g" id="qc-btn" onclick="doQC()">Qoshish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW TASK MODAL -->
+  <div class="mbg" id="m-nt" onclick="if(event.target===this)closeM('m-nt')">
+    <div class="modal">
+      <div class="mh">
+        <div class="mh-t">Yangi vazifa yaratish</div>
+        <button class="mcl" onclick="closeM('m-nt')">x</button>
+      </div>
+      <div class="mbody">
+        <div class="fg">
+          <label class="fl">Vazifa nomi</label>
+          <input class="fi" id="nt-t" placeholder="Masalan: Matematika uy vazifasi"/>
+        </div>
+        <div class="fg">
+          <label class="fl">Tavsif (batafsil yozing)</label>
+          <textarea class="fi" id="nt-d"
+            placeholder="Vazifani batafsil tushuntiring..."></textarea>
+        </div>
+        <div class="fg">
+          <label class="fl">Muddat</label>
+          <input class="fi" id="nt-dl" type="date"/>
+        </div>
+        <div class="fg" style="margin:0">
+          <label class="fl">Kimga</label>
+          <select class="fi" id="nt-to"></select>
+        </div>
+      </div>
+      <div class="mfot">
+        <button class="btn" onclick="closeM('m-nt')">Bekor</button>
+        <button class="btn btn-p" onclick="doNT()">Yaratish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- END ADMIN MODALS -->
+
+  <!-- ADD STUDENT MODAL -->
+  <div class="mbg" id="m-add-stu" onclick="if(event.target===this)closeM('m-add-stu')">
+    <div class="modal">
+      <div class="mh">
+        <div class="mh-t">👤 Yangi o'quvchi qo'shish</div>
+        <button class="mcl" onclick="closeM('m-add-stu')">×</button>
+      </div>
+      <div class="mbody">
+        <div class="fr">
+          <div class="fg" style="margin:0 0 13px">
+            <label class="fl">Ism Familiya</label>
+            <input class="fi" id="as-name" placeholder="Masalan: Sardor Aliyev"/>
+          </div>
+          <div class="fg" style="margin:0 0 13px">
+            <label class="fl">Telefon (ixtiyoriy)</label>
+            <input class="fi" id="as-phone" placeholder="+998 90 123 4567"/>
+          </div>
+        </div>
+        <div class="fr">
+          <div class="fg" style="margin:0 0 13px">
+            <label class="fl">Login</label>
+            <input class="fi" id="as-login" placeholder="sardor" autocomplete="off"/>
+          </div>
+          <div class="fg" style="margin:0 0 13px">
+            <label class="fl">Parol</label>
+            <input class="fi" id="as-pass" placeholder="••••••" autocomplete="new-password"/>
+          </div>
+        </div>
+        <div style="background:var(--b2);border:1px solid var(--bd);border-radius:var(--r);
+          padding:10px 13px;font-size:12px;color:var(--t1);line-height:1.7">
+          ℹ️ O'quvchi shu login va parol bilan tizimga kiradi.<br>
+          Parolni yodlab qoldirishni unutmang.
+        </div>
+      </div>
+      <div class="mfot">
+        <button class="btn" onclick="closeM('m-add-stu')">Bekor</button>
+        <button class="btn btn-p" onclick="addStu()">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg>
+          Qo'shish
+        </button>
+      </div>
+    </div>
+  </div>`;
+        }
+
+        // ============================================================
+        //  STUDENT — BUILD
+        // ============================================================
+        function buildStudent() {
+            const items = [
+                { id: 'home', ic: IC.dash, label: 'Bosh sahifa' },
+                { id: 'tasks', ic: IC.task, label: 'Vazifalarim', bdg: 's-t-bdg' },
+                { id: 'spin', ic: IC.spin, label: 'Baraban 🎰' },
+                { id: 'mkt', ic: IC.mkt, label: 'Market' },
+                { id: 'att', ic: IC.att, label: 'Davomat' },
+            ];
+            $('app').innerHTML = `
+  <div class="shell">
+    ${buildSidebar(items, DB.u, "O'quvchi kabineti")}
+    <div class="main">
+      <div class="topbar">
+        <div class="burger" onclick="openSb()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12h18M3 6h18M3 18h18"/>
+          </svg>
+        </div>
+        <div class="tb-t" id="s-tit">Bosh sahifa</div>
+        <div class="tb-r">
+          <div class="cc" id="s-cc">${fc(DB.u.coins)}</div>
+        </div>
+      </div>
+      <div class="cnt" id="s-cnt">
+        <div class="pg active" id="s-pg-home"></div>
+        <div class="pg"        id="s-pg-tasks"></div>
+        <div class="pg"        id="s-pg-spin"></div>
+        <div class="pg"        id="s-pg-mkt"></div>
+        <div class="pg"        id="s-pg-att"></div>
+      </div>
+    </div>
+  </div>
+  ${stuModals()}`;
+
+            document.querySelectorAll('.si').forEach(el => el.addEventListener('click', () => {
+                document.querySelectorAll('.si').forEach(s => s.classList.remove('active'));
+                el.classList.add('active');
+                document.querySelectorAll('#s-cnt .pg').forEach(p => p.classList.remove('active'));
+                closeSb();
+                const pg = el.dataset.pg;
+                $('s-pg-' + pg).classList.add('active');
+                const titles = {
+                    home: 'Bosh sahifa', tasks: 'Vazifalarim',
+                    spin: 'Baraban', mkt: 'Market', att: 'Davomat'
+                };
+                $('s-tit').textContent = titles[pg] || pg;
+                ({ home: rSHome, tasks: rSTasks, spin: rSSpin, mkt: rSMkt, att: rSAtt }[pg] || function () { })();
+            }));
+
+            updSTBdg();
+            rSHome();
+        }
+
+        function updCC() {
+            const el = $('s-cc');
+            if (el) el.textContent = fc(DB.u.coins);
+        }
+
+        function myTasks() {
+            return DB.tasks.filter(t => t.to === 'all' || t.to === DB.u.id);
+        }
+
+        function updSTBdg() {
+            const n = myTasks().filter(t =>
+                !DB.subs.find(s => s.tid === t.id && s.sid === DB.u.id && s.status !== 'rejected')
+            ).length;
+            const el = $('s-t-bdg');
+            if (el) { el.textContent = n; el.style.display = n > 0 ? 'inline-block' : 'none'; }
+        }
+
+        // ---- STUDENT HOME ----
+        function rSHome() {
+            const u = DB.u;
+            const mt = myTasks();
+            const mySubs = DB.subs.filter(s => s.sid === u.id);
+            const appr = mySubs.filter(s => s.status === 'approved');
+            const myLogs = DB.coinLog.filter(l => l.sid === u.id);
+            const todayC = myLogs.filter(l => l.date === today() && l.type === 'add')
+                .reduce((a, l) => a + l.amt, 0);
+            const came = DB.att.filter(a => a.sid === u.id && a.date === today())
+                .some(a => a.t === 'came');
+
+            $('s-pg-home').innerHTML = `
+    <div class="mcs">
+      ${[
+                    { l: 'Mening coinlarim', v: fc(u.coins), s: 'Balansim', c: 'var(--go)' },
+                    { l: 'Vazifalarim', v: mt.length, s: appr.length + ' ta bajarildi', c: 'var(--ac)' },
+                    { l: 'Bugungi davomat', v: came ? 'Keldim' : 'Kelmadim', s: today(), c: came ? 'var(--gr)' : 'var(--re)' },
+                    { l: 'Topshirilmagan', v: mt.filter(t => !DB.subs.find(s => s.tid === t.id && s.sid === u.id && s.status !== 'rejected')).length, s: 'ta vazifa', c: 'var(--am)' },
+                ].map((m, i) => `
+        <div class="mc st" style="animation-delay:${i * .06}s">
+          <div class="mc-l">${m.l}</div>
+          <div class="mc-v" style="color:${m.c}">${m.v}</div>
+          <div class="mc-s">${m.s}</div>
+        </div>`).join('')}
+    </div>
+    ${!came ? `
+      <div style="background:var(--gr2);border:1px solid rgba(24,201,122,.2);
+        border-radius:var(--r2);padding:14px 16px;margin-bottom:16px;
+        display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-weight:600;color:var(--gr)">Bugun keldingizmi?</div>
+          <div style="font-size:12px;color:var(--t1);margin-top:2px">Davomatni belgilang</div>
+        </div>
+        <button class="btn btn-g" onclick="sCame()">Keldim</button>
+      </div>` : ''}
+    <div class="g2">
+      <div>
+        <div class="sh"><div class="sht">Faol vazifalar</div></div>
+        ${mt.slice(0, 3).map((t, i) => {
+                    const sub = DB.subs.find(s => s.tid === t.id && s.sid === u.id);
+                    const p = !sub ? `<span class="pl p-am">Topshirilmagan</span>`
+                        : sub.status === 'pending' ? `<span class="pl p-bl">Tekshirilmoqda</span>`
+                            : sub.status === 'approved' ? `<span class="pl p-gr">✅ Tasdiqlandi</span>`
+                                : `<span class="pl p-re">Rad etildi</span>`;
+                    return `<div class="card st" style="animation-delay:${i * .05}s">
+            <div class="ct">${t.title}</div>
+            <div class="cf">
+              ${p}
+              <span style="font-size:11px;color:var(--t2)">Muddat: ${t.deadline}</span>
+            </div>
+          </div>`;
+                }).join('')}
+        ${mt.length === 0 ? `<div class="empty">
+          <div class="empty-e">📋</div>
+          <div class="empty-t">Vazifa yoq</div>
+        </div>` : ''}
+      </div>
+      <div>
+        <div class="sh"><div class="sht">Coin tarixi</div></div>
+        ${myLogs.length === 0
+                    ? `<div class="empty">
+               <div class="empty-e">🪙</div>
+               <div class="empty-t">Hali coin olmadingiz</div>
+             </div>`
+                    : `<div class="tc">
+               <table>
+                 <tbody>
+                   ${[...myLogs].reverse().slice(0, 6).map(l => `
+                     <tr class="${l.type === 'add' ? 'log-row-add' : 'log-row-sub'}">
+                       <td style="font-size:12px;color:var(--t1)">${l.reason}</td>
+                       <td class="${l.type === 'add' ? 'log-amt-add' : 'log-amt-sub'}">
+                         ${l.type === 'add' ? '+' : '-'}${l.amt}
+                       </td>
+                       <td style="font-size:11px;color:var(--t2)">${l.date}</td>
+                     </tr>`).join('')}
+                 </tbody>
+               </table>
+             </div>`}
+      </div>
+    </div>`;
+        }
+
+        function sCame() {
+            const u = DB.u;
+            if (DB.att.find(a => a.sid === u.id && a.date === today() && a.t === 'came')) return;
+            DB.att.push({ id: DB.nid.att++, sid: u.id, date: today(), t: 'came', time: nowT() });
+            toast("Davomat belgilandi! Xush kelibsiz", 'ok');
+            rSHome();
+        }
+
+        // ---- STUDENT TASKS ----
+        function rSTasks() {
+            const u = DB.u;
+            const mt = myTasks();
+            $('s-pg-tasks').innerHTML = `
+    <div class="sh"><div class="sht">Mening vazifalarim (${mt.length})</div></div>
+    ${mt.length === 0
+                    ? `<div class="empty">
+           <div class="empty-e">📋</div>
+           <div class="empty-t">Hali vazifa berilmagan</div>
+           <div class="empty-s">Admin tomonidan vazifa berilganda bu yerda korinadi</div>
+         </div>`
+                    : mt.map((t, i) => {
+                        const sub = DB.subs.find(s => s.tid === t.id && s.sid === u.id);
+                        const canSub = !sub || sub.status === 'rejected';
+                        const pill = !sub ? `<span class="pl p-am">Topshirilmagan</span>`
+                            : sub.status === 'pending' ? `<span class="pl p-bl">Tekshirilmoqda...</span>`
+                                : sub.status === 'approved' ? `<span class="pl p-gr">✅ Tasdiqlandi</span>`
+                                    : `<span class="pl p-re">Rad etildi — qayta topshiring</span>`;
+                        return `
+          <div class="card st" style="animation-delay:${i * .05}s">
+            <div style="display:flex;justify-content:space-between;
+              align-items:start;margin-bottom:5px">
+              <div class="ct">${t.title}</div>
+              ${pill}
+            </div>
+            <div class="cd">${t.desc}</div>
+            ${sub && sub.img
+                                ? `<img src="${sub.img}"
+                  style="width:100%;max-height:120px;object-fit:cover;
+                    border-radius:6px;margin-bottom:10px;cursor:zoom-in"
+                  onclick="viewImg(${sub.id})">`
+                                : ''}
+            <div class="cf">
+              <span style="font-size:11px;color:var(--t2)">Muddat: ${t.deadline}</span>
+              ${canSub ? `<button class="btn btn-p btn-sm"
+                onclick="openSub(${t.id})" style="margin-left:auto">
+                📷 Rasm yuklash
+              </button>` : ''}
+            </div>
+          </div>`;
+                    }).join('')}`;
+        }
+
+        function openSub(tid) {
+            $('sub-tid').value = tid;
+            $('sub-prv').style.display = 'none';
+            $('sub-prv').src = '';
+            $('sub-fi').value = '';
+            openM('m-sub');
+        }
+
+        function onFileC(inp) {
+            const f = inp.files[0];
+            if (!f) return;
+            const r = new FileReader();
+            r.onload = e => {
+                $('sub-prv').src = e.target.result;
+                $('sub-prv').style.display = 'block';
+            };
+            r.readAsDataURL(f);
+        }
+
+        function doSub() {
+            const u = DB.u;
+            const tid = parseInt($('sub-tid').value);
+            const imgSrc = $('sub-prv').src;
+            if (!imgSrc || imgSrc === window.location.href) {
+                toast('Iltimos rasm tanlang!', 'err');
+                return;
+            }
+            const ex = DB.subs.findIndex(s => s.tid === tid && s.sid === u.id);
+            if (ex >= 0) DB.subs.splice(ex, 1);
+            DB.subs.push({
+                id: DB.nid.sub++, tid, sid: u.id,
+                status: 'pending', img: imgSrc,
+                date: today(), coins: 0
+            });
+            closeM('m-sub');
+            toast('Vazifa muvaffaqiyatli topshirildi!', 'ok');
+            updSTBdg();
+            rSTasks();
+        }
+
+        // ---- STUDENT MARKET ----
+        function rSMkt() {
+            const u = DB.u;
+            $('s-pg-mkt').innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="sht">Market</div>
+      <div class="cc">${fc(u.coins)} mening coinim</div>
+    </div>
+    <div class="mkt" style="margin-bottom:20px">
+      ${DB.mkt.map((it, i) => {
+                const canB = u.coins >= it.price;
+                const myB = DB.buys.find(b => b.sid === u.id && b.iid === it.id);
+                return `
+        <div class="mktc st" style="animation-delay:${i * .06}s">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${it.color}"></div>
+          <span class="mktc-e">${mktE(it.name)}</span>
+          <div class="mktc-n">${it.name}</div>
+          <div class="mktc-d">${it.desc}</div>
+          <div class="mktc-p">${fc(it.price)}</div>
+          ${myB ? `<span class="pl p-gr">Sotib olindi</span>`
+                        : canB ? `<button class="btn btn-go" onclick="openBuy(${it.id})"
+                      style="width:100%">Sotib olish</button>`
+                            : `<div style="font-size:12px;color:var(--re)">
+               Yetmaydi: ${fc(it.price - u.coins)}
+             </div>`}
+        </div>`;
+            }).join('')}
+    </div>
+    <hr>
+    <div class="sh"><div class="sht">Mening sotib olishlarim</div></div>
+    ${DB.buys.filter(b => b.sid === u.id).length === 0
+                    ? `<div class="empty">
+           <div class="empty-e">🛒</div>
+           <div class="empty-t">Hali sotib olmadingiz</div>
+         </div>`
+                    : `<div class="tc">
+           <table>
+             <thead><tr><th>Mahsulot</th><th>Narx</th><th>Sana</th></tr></thead>
+             <tbody>
+               ${DB.buys.filter(b => b.sid === u.id).map(b => {
+                        const it = DB.mkt.find(m => m.id === b.iid);
+                        return `<tr>
+                   <td>${it ? mktE(it.name) + ' ' + it.name : '—'}</td>
+                   <td style="color:var(--go);font-weight:500">${fc(b.price)}</td>
+                   <td style="font-size:11px;color:var(--t1)">${b.date}</td>
+                 </tr>`;
+                    }).join('')}
+             </tbody>
+           </table>
+         </div>`}`;
+        }
+
+        function openBuy(iid) {
+            const it = DB.mkt.find(m => m.id === iid);
+            $('buy-id').value = iid;
+            $('buy-ie').textContent = mktE(it.name);
+            $('buy-in').textContent = it.name;
+            $('buy-ip').textContent = fc(it.price);
+            $('buy-cb').textContent = fc(DB.u.coins);
+            $('buy-af').textContent = fc(DB.u.coins - it.price);
+            openM('m-buy');
+        }
+
+        function doBuy() {
+            const u = DB.u;
+            const iid = parseInt($('buy-id').value);
+            const it = DB.mkt.find(m => m.id === iid);
+            if (u.coins < it.price) { toast("Yetarli coin yoq!", 'err'); return; }
+            u.coins -= it.price;
+            DB.buys.push({ id: DB.nid.buy++, sid: u.id, iid, price: it.price, date: today() });
+            DB.coinLog.push({
+                id: DB.nid.log++, sid: u.id, type: 'sub',
+                amt: it.price,
+                reason: `${mktE(it.name)} ${it.name} sotib olindi`,
+                date: today(), by: 'Market'
+            });
+            closeM('m-buy');
+            updCC();
+            toast(`${mktE(it.name)} ${it.name} muvaffaqiyatli sotib olindi!`, 'ok');
+            rSMkt();
+        }
+
+        // ---- STUDENT ATTENDANCE ----
+        function rSAtt() {
+            const u = DB.u;
+            const myA = DB.att.filter(a => a.sid === u.id);
+            const dates = [...new Set(myA.map(a => a.date))].sort().reverse();
+            const td = myA.filter(a => a.date === today());
+            const came = td.find(a => a.t === 'came');
+            const left = td.find(a => a.t === 'left');
+            $('s-pg-att').innerHTML = `
+    <div class="sh"><div class="sht">Mening davomatim</div></div>
+    <div class="card" style="margin-bottom:16px">
+      <div style="font-weight:600;margin-bottom:10px">Bugun — ${today()}</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        ${came ? `<span class="pl p-gr">Keldi: ${came.time}</span>`
+                    : `<span class="pl p-gy">Kelmagan</span>`}
+        ${left ? `<span class="pl p-am">Ketdi: ${left.time}</span>` : ''}
+        ${!came ? `<button class="btn btn-g btn-sm"
+          onclick="sCame();rSAtt()">Keldim</button>` : ''}
+      </div>
+    </div>
+    <div class="sh"><div class="sht">Davomat tarixi</div></div>
+    ${dates.length === 0
+                    ? `<div class="empty">
+           <div class="empty-e">📅</div>
+           <div class="empty-t">Hali davomat yoq</div>
+         </div>`
+                    : `<div class="tc">
+           <table>
+             <thead><tr><th>Sana</th><th>Keldi</th><th>Ketdi</th></tr></thead>
+             <tbody>
+               ${dates.map(d => {
+                        const da = myA.filter(a => a.date === d);
+                        const c = da.find(a => a.t === 'came');
+                        const l = da.find(a => a.t === 'left');
+                        return `<tr>
+                   <td style="font-weight:500">${d}</td>
+                   <td>${c
+                                ? `<span class="pl p-gr">${c.time}</span>`
+                                : `<span class="pl p-gy">—</span>`}</td>
+                   <td>${l
+                                ? `<span class="pl p-am">${l.time}</span>`
+                                : `<span style="color:var(--t2);font-size:12px">—</span>`}</td>
+                 </tr>`;
+                    }).join('')}
+             </tbody>
+           </table>
+         </div>`}`;
+        }
+
+        // ---- STUDENT MODALS ----
+        function stuModals() {
+            return `
+  <!-- SUBMIT TASK -->
+  <div class="mbg" id="m-sub" onclick="if(event.target===this)closeM('m-sub')">
+    <div class="modal">
+      <div class="mh">
+        <div class="mh-t">Vazifani topshirish</div>
+        <button class="mcl" onclick="closeM('m-sub')">x</button>
+      </div>
+      <div class="mbody">
+        <input type="hidden" id="sub-tid">
+        <div class="fg">
+          <label class="fl">Bajargan ishingiz rasmini yuklang</label>
+          <div class="uz" onclick="document.getElementById('sub-fi').click()">
+            <div class="uz-t">Rasm tanlash uchun bosing</div>
+            <div class="uz-s">JPG, PNG, HEIC qabul qilinadi</div>
+          </div>
+          <input type="file" id="sub-fi" accept="image/*"
+            onchange="onFileC(this)" style="display:none"/>
+          <img id="sub-prv" class="uprev" alt="preview"/>
+        </div>
+      </div>
+      <div class="mfot">
+        <button class="btn" onclick="closeM('m-sub')">Bekor</button>
+        <button class="btn btn-p" onclick="doSub()">Topshirish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUY -->
+  <div class="mbg" id="m-buy" onclick="if(event.target===this)closeM('m-buy')">
+    <div class="modal">
+      <div class="mh">
+        <div class="mh-t">Sotib olish</div>
+        <button class="mcl" onclick="closeM('m-buy')">x</button>
+      </div>
+      <div class="mbody">
+        <input type="hidden" id="buy-id">
+        <div style="text-align:center;padding:10px 0 16px">
+          <div style="font-size:48px;margin-bottom:6px" id="buy-ie"></div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:4px" id="buy-in"></div>
+          <div style="font-size:26px;font-weight:700;color:var(--go)" id="buy-ip"></div>
+        </div>
+        <hr>
+        <div style="display:flex;justify-content:space-between;
+          font-size:13px;padding:4px 0">
+          <span style="color:var(--t1)">Mening coinlarim</span>
+          <span style="color:var(--go);font-weight:600" id="buy-cb"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;
+          font-size:13px;padding:4px 0">
+          <span style="color:var(--t1)">Keyin qoladi</span>
+          <span style="font-weight:600" id="buy-af"></span>
+        </div>
+      </div>
+      <div class="mfot">
+        <button class="btn" onclick="closeM('m-buy')">Bekor</button>
+        <button class="btn btn-go" onclick="doBuy()">Sotib olish</button>
+      </div>
+    </div>
+  </div>`;
+        }
+
+        // ============================================================
+        //  BARABAN (SPIN WHEEL)
+        // ============================================================
+        const WHEEL_PRIZES = [
+            { label: '0', coins: 0, weight: 30, color: '#2a2f4a' },
+            { label: '1', coins: 1, weight: 22, color: '#1d3a5c' },
+            { label: '10', coins: 10, weight: 18, color: '#1a4a3a' },
+            { label: '30', coins: 30, weight: 12, color: '#3a2a1a' },
+            { label: '50', coins: 50, weight: 9, color: '#2a1a3a' },
+            { label: '100', coins: 100, weight: 6, color: '#1a3a1a' },
+            { label: '500', coins: 500, weight: 2.5, color: '#3a1a1a' },
+            { label: '1000', coins: 1000, weight: 0.5, color: '#2a0a0a' },
+        ];
+        const PRIZE_COLORS = [
+            '#1e2d4a', '#162b3e', '#0f2e28', '#2e1e0f',
+            '#1e0f2e', '#0f2e10', '#2e100f', '#1a0505'
+        ];
+        const PRIZE_ACCENT = [
+            '#4f87f6', '#38bdf8', '#18c97a', '#f5a400',
+            '#9b70f5', '#22c97a', '#ef4f4e', '#f5c400'
+        ];
+
+        let spinState = { spinning: false, angle: 0, lastSpinDate: null };
+
+        function rSSpin() {
+            const pg = $('s-pg-spin');
+            if (!pg) return;
+            const u = DB.u;
+            const spinLog = DB.coinLog.filter(l => l.sid === u.id && l.reason && l.reason.includes('Baraban'));
+            const canSpin = u.coins >= 300;
+
+            pg.innerHTML = `
+  <div style="max-width:520px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="font-size:26px;font-weight:700;letter-spacing:-.5px;margin-bottom:4px">
+        🎰 Baraban
+      </div>
+      <div style="font-size:13px;color:var(--t1)">
+        Har 1 marta aylantirish — <span style="color:var(--go);font-weight:600">300 coin</span>
+      </div>
+    </div>
+
+    <!-- COIN BALANCE -->
+    <div style="display:flex;justify-content:center;gap:10px;margin-bottom:18px;align-items:center">
+      <div class="cc" style="font-size:16px;padding:8px 20px">${fc(u.coins)}</div>
+      ${canSpin
+                    ? `<div style="font-size:12px;color:var(--gr)">✓ Yetarli coin</div>`
+                    : `<div style="font-size:12px;color:var(--re)">Yetmaydi (kerak: ${fc(300)})</div>`}
+    </div>
+
+    <!-- WHEEL WRAPPER -->
+    <div style="position:relative;display:flex;justify-content:center;align-items:center;margin-bottom:18px">
+      <!-- Pointer -->
+      <div id="spin-ptr" style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+        z-index:5;width:0;height:0;
+        border-left:12px solid transparent;
+        border-right:12px solid transparent;
+        border-top:22px solid var(--go);
+        filter:drop-shadow(0 2px 6px rgba(245,196,0,.5))">
+      </div>
+      <canvas id="spin-canvas" width="320" height="320"
+        style="border-radius:50%;box-shadow:0 0 40px rgba(79,135,246,.2),0 8px 32px rgba(0,0,0,.6);
+        display:block;max-width:min(320px,80vw);max-height:min(320px,80vw)">
+      </canvas>
+      <!-- Center button -->
+      <div id="spin-btn-center" onclick="doSpin()"
+        style="position:absolute;width:64px;height:64px;border-radius:50%;
+        background:${canSpin ? 'linear-gradient(135deg,var(--ac),#7b5cf0)' : 'var(--b3)'};
+        display:flex;align-items:center;justify-content:center;
+        cursor:${canSpin ? 'pointer' : 'default'};
+        box-shadow:0 0 0 4px var(--b0),0 0 20px ${canSpin ? 'rgba(79,135,246,.4)' : 'transparent'};
+        transition:transform .15s,box-shadow .15s;font-size:22px"
+        title="${canSpin ? '300 coin sarflab aylantirish' : 'Yetarli coin yoq'}">
+        ${canSpin ? '▶' : '🔒'}
+      </div>
+    </div>
+
+    ${canSpin
+                    ? `<div style="text-align:center;margin-bottom:16px">
+           <button class="btn btn-p" onclick="doSpin()"
+             style="padding:11px 32px;font-size:14px;font-weight:600;
+             box-shadow:0 0 24px rgba(79,135,246,.35)">
+             🎰 300 coin sarflab aylantirish!
+           </button>
+         </div>`
+                    : `<div style="text-align:center;margin-bottom:16px;
+           background:var(--re2);border:1px solid rgba(239,79,78,.2);
+           border-radius:var(--r2);padding:12px">
+           <div style="color:var(--re);font-weight:600;font-size:13px">
+             Yetarli coin yoq!
+           </div>
+           <div style="font-size:11.5px;color:var(--t1);margin-top:3px">
+             Baraban uchun kamida 300 coin kerak. Coin yig'ing!
+           </div>
+         </div>`}
+
+    <!-- PRIZES TABLE -->
+    <div style="margin-bottom:20px">
+      <div class="sh"><div class="sht">Mumkin bo'lgan mukofotlar</div></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        ${WHEEL_PRIZES.map((p, i) => `
+          <div style="background:${PRIZE_COLORS[i]};border:1px solid ${PRIZE_ACCENT[i]}33;
+            border-radius:var(--r2);padding:10px 6px;text-align:center;
+            position:relative;overflow:hidden">
+            <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${PRIZE_ACCENT[i]}"></div>
+            <div style="font-size:16px;font-weight:700;color:${PRIZE_ACCENT[i]};margin-bottom:2px">
+              ${p.label === '0' ? '😔' : p.coins.toLocaleString()}
+            </div>
+            <div style="font-size:9.5px;color:var(--t2);text-transform:uppercase;letter-spacing:.5px">
+              ${p.label === '0' ? 'Yutmadi' : 'coin'}
+            </div>
+            <div style="margin-top:5px;font-size:9px;color:var(--t2)">
+              ${p.weight >= 20 ? '⭐⭐⭐⭐' : p.weight >= 10 ? '⭐⭐⭐' : p.weight >= 5 ? '⭐⭐' : p.weight >= 2 ? '⭐' : '💎'}
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- SPIN HISTORY -->
+    <div class="sh"><div class="sht">Baraban tarixi</div></div>
+    ${spinLog.length === 0
+                    ? `<div class="empty"><div class="empty-e">🎰</div>
+         <div class="empty-t">Hali aylantirilmagan</div></div>`
+                    : `<div class="tc"><table>
+           <thead><tr><th>Sana</th><th>Sarflandi</th><th>Natija</th></tr></thead>
+           <tbody>
+             ${[...spinLog].reverse().slice(0, 8).map(l => `
+               <tr>
+                 <td style="font-size:11px;color:var(--t2)">${l.date}</td>
+                 <td style="color:var(--re);font-weight:600;font-size:12px">-300</td>
+                 <td class="${l.amt > 0 ? 'log-amt-add' : ''}" style="${l.amt === 0 ? 'color:var(--t2)' : ''}">
+                   ${l.amt === 0 ? '😔 Yutmadi' : '+' + l.amt.toLocaleString() + ' coin'}
+                 </td>
+               </tr>`).join('')}
+           </tbody>
+         </table></div>`}
+  </div>`;
+
+            drawWheel(spinState.angle);
+        }
+
+        function drawWheel(rotAngle) {
+            const canvas = $('spin-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width;
+            const cx = W / 2, cy = W / 2, r = W / 2 - 6;
+            const total = WHEEL_PRIZES.reduce((a, p) => a + p.weight, 0);
+            ctx.clearRect(0, 0, W, W);
+
+            let startAngle = rotAngle;
+            WHEEL_PRIZES.forEach((p, i) => {
+                const slice = (p.weight / total) * 2 * Math.PI;
+                const end = startAngle + slice;
+                const mid = startAngle + slice / 2;
+
+                // Segment fill
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, r, startAngle, end);
+                ctx.closePath();
+                const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+                grad.addColorStop(0, PRIZE_COLORS[i]);
+                grad.addColorStop(1, PRIZE_COLORS[i] + 'dd');
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                // Accent border
+                ctx.strokeStyle = PRIZE_ACCENT[i] + '55';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                // Outer arc accent
+                ctx.beginPath();
+                ctx.arc(cx, cy, r - 2, startAngle, end);
+                ctx.strokeStyle = PRIZE_ACCENT[i] + '88';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Label text
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.rotate(mid);
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'middle';
+                ctx.font = `bold ${p.coins >= 1000 ? 13 : p.coins >= 100 ? 14 : 15}px 'Outfit',sans-serif`;
+                ctx.fillStyle = PRIZE_ACCENT[i];
+                ctx.shadowColor = PRIZE_ACCENT[i];
+                ctx.shadowBlur = 6;
+                ctx.fillText(p.label === '0' ? '0' : p.coins.toLocaleString(), r - 18, 0);
+                ctx.font = `500 9px 'Outfit',sans-serif`;
+                ctx.fillStyle = PRIZE_ACCENT[i] + 'aa';
+                ctx.shadowBlur = 0;
+                ctx.fillText(p.label === '0' ? 'coin yoq' : 'COIN', r - 18, 13);
+                ctx.restore();
+
+                startAngle = end;
+            });
+
+            // Center circle
+            ctx.beginPath();
+            ctx.arc(cx, cy, 28, 0, 2 * Math.PI);
+            ctx.fillStyle = '#06080f';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255,255,255,.08)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        function pickPrize() {
+            const total = WHEEL_PRIZES.reduce((a, p) => a + p.weight, 0);
+            let r = Math.random() * total;
+            for (const p of WHEEL_PRIZES) {
+                r -= p.weight;
+                if (r <= 0) return p;
+            }
+            return WHEEL_PRIZES[0];
+        }
+
+        function doSpin() {
+            if (spinState.spinning) return;
+            const u = DB.u;
+            if (u.coins < 300) {
+                toast("Yetarli coin yoq! Baraban uchun 300 coin kerak.", 'err');
+                return;
+            }
+
+            // Deduct 300 coins immediately
+            u.coins -= 300;
+            DB.coinLog.push({
+                id: DB.nid.log++, sid: u.id, type: 'sub', amt: 300,
+                reason: 'Baraban: 300 coin sarflandi',
+                date: today(), by: 'Baraban'
+            });
+            updCC();
+            spinState.spinning = true;
+
+            // Pick prize
+            const prize = pickPrize();
+            // Compute target angle so that the prize lands under the pointer (top center = -PI/2)
+            const total = WHEEL_PRIZES.reduce((a, p) => a + p.weight, 0);
+            let cumAngle = 0;
+            for (const p of WHEEL_PRIZES) {
+                const slice = (p.weight / total) * 2 * Math.PI;
+                if (p === prize) {
+                    const midOfSlice = cumAngle + slice / 2;
+                    // We want midOfSlice + finalAngle = -PI/2 (pointer at top)
+                    // Add extra full rotations (5-8) for drama
+                    const extra = (5 + Math.floor(Math.random() * 4)) * 2 * Math.PI;
+                    const target = extra + (-Math.PI / 2 - midOfSlice);
+                    spinState._target = target;
+                    break;
+                }
+                cumAngle += slice;
+            }
+
+            const startAngle = spinState.angle;
+            const totalDelta = spinState._target - startAngle;
+            const duration = 4500 + Math.random() * 1500; // 4.5–6s
+            const startTime = performance.now();
+
+            function easeOut(t) {
+                return 1 - Math.pow(1 - t, 4);
+            }
+
+            function animate(now) {
+                const elapsed = now - startTime;
+                const t = Math.min(elapsed / duration, 1);
+                const eased = easeOut(t);
+                spinState.angle = startAngle + totalDelta * eased;
+                drawWheel(spinState.angle);
+                if (t < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    spinState.angle = spinState._target;
+                    spinState.spinning = false;
+                    // Award prize coins
+                    const u = DB.u;
+                    if (prize.coins > 0) {
+                        u.coins += prize.coins;
+                        DB.coinLog.push({
+                            id: DB.nid.log++, sid: u.id,
+                            type: 'add', amt: prize.coins,
+                            reason: `Baraban: +${prize.coins} coin yutdi!`,
+                            date: today(), by: 'Baraban'
+                        });
+                    } else {
+                        DB.coinLog.push({
+                            id: DB.nid.log++, sid: u.id,
+                            type: 'add', amt: 0,
+                            reason: `Baraban: Yutmadi (0)`,
+                            date: today(), by: 'Baraban'
+                        });
+                    }
+                    updCC();
+                    // Show result
+                    if (prize.coins >= 1000) {
+                        showSpinResult(prize, true);
+                        setTimeout(() => showSpinResult(prize, true), 100);
+                    } else {
+                        showSpinResult(prize, false);
+                    }
+                    setTimeout(() => rSSpin(), 2200);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        function showSpinResult(prize, jackpot) {
+            // Remove old result
+            const old = $('spin-result-toast');
+            if (old) old.remove();
+
+            const div = document.createElement('div');
+            div.id = 'spin-result-toast';
+            div.style.cssText = `
+    position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);
+    z-index:500;background:var(--b1);border:2px solid ${jackpot ? '#f5c400' : prize.coins > 0 ? 'var(--gr)' : 'var(--bd2)'};
+    border-radius:16px;padding:28px 40px;text-align:center;
+    box-shadow:0 24px 60px rgba(0,0,0,.8)${jackpot ? ',0 0 60px rgba(245,196,0,.4)' : ''};
+    animation:spinPop .4s cubic-bezier(.175,.885,.32,1.275) forwards;
+    min-width:220px;
+  `;
+            div.innerHTML = `
+    <style>
+      @keyframes spinPop{from{transform:translate(-50%,-50%) scale(0)}to{transform:translate(-50%,-50%) scale(1)}}
+      @keyframes spinFade{from{opacity:1;transform:translate(-50%,-50%) scale(1)}to{opacity:0;transform:translate(-50%,-50%) scale(.9)}}
+    </style>
+    <div style="font-size:52px;margin-bottom:8px">${jackpot ? '🎉' : prize.coins >= 500 ? '🤩' : prize.coins >= 100 ? '😊' : prize.coins > 0 ? '🙂' : '😔'}</div>
+    <div style="font-size:${jackpot ? '32' : '24'}px;font-weight:700;color:${jackpot ? '#f5c400' : prize.coins > 0 ? 'var(--gr)' : 'var(--t1)'};letter-spacing:-1px;margin-bottom:4px">
+      ${prize.coins === 0 ? 'Yutmadingiz' : '+' + prize.coins.toLocaleString() + ' Coin!'}
+    </div>
+    <div style="font-size:13px;color:var(--t1)">
+      ${jackpot ? '🎊 JACKPOT! Tabriklaymiz!' : prize.coins >= 500 ? 'Zo`r yutdingiz!' : prize.coins > 0 ? 'Barakalla!' : 'Omad keyingisi uchun'}
+    </div>
+  `;
+            document.body.appendChild(div);
+            setTimeout(() => {
+                div.style.animation = 'spinFade .5s ease forwards';
+                setTimeout(() => div.remove(), 500);
+            }, 1800);
+        }
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        renderLogin();
+    </script>
+</body>
+
+</html>
